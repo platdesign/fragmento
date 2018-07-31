@@ -1,0 +1,19 @@
+{
+  "name": "fragmento",
+  "description": "A project by platdesign.de",
+  "author": [
+    {
+      "name": "Christian Blaschke",
+      "email": "mail@platdesign.de",
+      "url": "https://github.com/platdesign"
+    }
+  ],
+  "version": "0.0.0",
+  "repository": "",
+  "devDependencies": {
+    "lerna": "^3.0.0-rc.0"
+  },
+  "scripts": {
+    "lerna": "lerna"
+  }
+}

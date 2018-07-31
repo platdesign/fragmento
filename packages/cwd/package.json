@@ -1,0 +1,25 @@
+{
+  "name": "@fragmento/cwd",
+  "description": "Fragmento tools for current working directory",
+  "author": [
+    {
+      "name": "Christian Blaschke",
+      "email": "mail@platdesign.de",
+      "url": "https://github.com/platdesign"
+    }
+  ],
+  "version": "0.0.0",
+  "dependencies": {
+    "glob": "^7.1.2",
+    "glob-promise": "^3.4.0",
+    "joi": "^13.5.1"
+  },
+  "repository": "",
+  "devDependencies": {
+    "code": "^5.2.0",
+    "mocha": "^5.2.0"
+  },
+  "scripts": {
+    "test": "mocha"
+  }
+}
