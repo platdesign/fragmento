@@ -1,5 +1,6 @@
 {
   "name": "@fragmento/cwd",
+  "private": false,
   "description": "Fragmento tools for current working directory",
   "author": [
     {
@@ -21,5 +22,6 @@
   },
   "scripts": {
     "test": "mocha"
-  }
+  },
+  "gitHead": "0501f63e640da05910ee6a2c8612e54b2d1276c1"
 }

@@ -1,6 +1,7 @@
 {
-  "name": "@fragmento/server",
-  "description": "A project by platdesign.de",
+  "name": "@fragmento/server-hapi",
+  "private": false,
+  "description": "Fragmento hapi server",
   "author": [
     {
       "name": "Christian Blaschke",
@@ -15,5 +16,6 @@
     "hapi": "^17.5.2",
     "joi": "^13.5.2"
   },
-  "repository": ""
+  "repository": "",
+  "gitHead": "0501f63e640da05910ee6a2c8612e54b2d1276c1"
 }
