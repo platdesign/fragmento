@@ -1,0 +1,21 @@
+{
+  "name": "@fragmento/cli",
+  "description": "Fragmento cli",
+  "author": [
+    {
+      "name": "Christian Blaschke",
+      "email": "mail@platdesign.de",
+      "url": "https://github.com/platdesign"
+    }
+  ],
+  "version": "0.0.0",
+  "dependencies": {
+    "@fragmento/cwd": "^0.0.3",
+    "commander": "^2.16.0"
+  },
+  "repository": "",
+  "scripts": {
+    "test": "mocha",
+    "test:w": "mocha -w"
+  }
+}

@@ -9,7 +9,17 @@ const Joi = require('joi');
 
 
 const JOI_CONFIG_SCHEMA = Joi.object().required().keys({
-	id: Joi.string().required()
+	id: Joi.string().required(),
+
+	server: Joi.object().keys({
+		port: Joi.number().default(4001)
+	}).default({ port: undefined }),
+
+
+	devServer: Joi.object().keys({
+		port: Joi.number().default(4002)
+	}).default({})
+
 });
 
 

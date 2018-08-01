@@ -32,6 +32,9 @@ describe('project 1', () => {
 			expect(config)
 				.to.be.an.object();
 
+			expect(config.server)
+				.to.be.an.object();
+
 		});
 
 	});
@@ -54,6 +57,9 @@ describe('project 1', () => {
 			expect(fragments[0])
 				.to.be.an.object()
 				.contains(['dir']);
+
+			expect(fragments[0].id)
+				.to.be.a.string();
 
 		});
 

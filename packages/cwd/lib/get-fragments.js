@@ -27,7 +27,6 @@ module.exports = async (cwd) => {
 		for(let fragDir of fragDirs) {
 			let fragment = new Fragment(path.join(fragmentsDir, fragDir));
 
-
 			try {
 				await fragment.init();
 				fragments.push(fragment);

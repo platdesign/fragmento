@@ -16,12 +16,9 @@
     "joi": "^13.5.1"
   },
   "repository": "",
-  "devDependencies": {
-    "code": "^5.2.0",
-    "mocha": "^5.2.0"
-  },
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "test:w": "mocha -w"
   },
   "gitHead": "eae131ae98df11681271511e777bbb827a493825",
   "publishConfig": {
