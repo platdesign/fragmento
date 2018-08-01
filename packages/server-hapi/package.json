@@ -18,7 +18,7 @@
     "joi": "^13.5.2"
   },
   "repository": "",
-  "gitHead": "eae131ae98df11681271511e777bbb827a493825",
+  "gitHead": "5caf5ff95af8bd4725c9207a4014ac26a74701a2",
   "publishConfig": {
     "access": "public"
   },

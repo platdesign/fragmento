@@ -17,5 +17,9 @@
   "scripts": {
     "test": "mocha",
     "test:w": "mocha -w"
+  },
+  "gitHead": "5caf5ff95af8bd4725c9207a4014ac26a74701a2",
+    "publishConfig": {
+    "access": "public"
   }
 }
