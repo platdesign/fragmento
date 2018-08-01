@@ -8,9 +8,9 @@
       "url": "https://github.com/platdesign"
     }
   ],
-  "version": "0.0.1",
+  "version": "0.0.2",
   "dependencies": {
-    "@fragmento/cwd": "^0.0.4",
+    "@fragmento/cwd": "^0.0.5",
     "commander": "^2.16.0"
   },
   "repository": "",
@@ -19,7 +19,7 @@
     "test:w": "mocha -w"
   },
   "gitHead": "5caf5ff95af8bd4725c9207a4014ac26a74701a2",
-    "publishConfig": {
+  "publishConfig": {
     "access": "public"
   }
 }
