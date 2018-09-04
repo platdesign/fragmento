@@ -12,22 +12,13 @@ const fragments = getFragments(process.env.INIT_CWD);
 
 
 
-const config = {
-	backend: {
-		port: 9002
-	},
-	devServer: {
-		port: 1234
-	}
-};
-
 
 
 
 function devServerConfig() {
 	return {
 		// If devServer is needed use backend port and set up proxy
-		port: config.backend.port,
+		port: projectConfig.backend.port,
 		hot: true,
 		headers: {
 			'Access-Control-Allow-Origin': '*'
@@ -35,10 +26,10 @@ function devServerConfig() {
 		allowedHosts: ['*'],
 		disableHostCheck: true,
 		open: false,
-		publicPath: '/assets/',
+		publicPath: projectConfig.publicPath,
 		proxy: {
 			'/api': {
-				target: `http://localhost:${config.devServer.port}`,
+				target: `http://localhost:${projectConfig.devServer.port}`,
 				ws: true,
 				changeOrigin: true
 			}
@@ -69,7 +60,6 @@ module.exports = async (api, projectOptions) => {
 			.delete('app');
 
 
-
 		wconfig.output
 			.filename('[name].js')
 			.library('[name]')
@@ -78,6 +68,8 @@ module.exports = async (api, projectOptions) => {
 
 
 		if(api.service.mode === 'production') {
+			wconfig.devtool(false);
+
 			wconfig.output
 				.filename('[name].[hash].js');
 		}
@@ -88,7 +80,7 @@ module.exports = async (api, projectOptions) => {
 		for(let fragment of fragments) {
 
 			wconfig
-				.entry(`f_${projectConfig.id}_${fragment.id}`)
+				.entry(fragment.entryName)
 				.add(path.join(fragment.dir, 'client', 'main.js'));
 
 		}

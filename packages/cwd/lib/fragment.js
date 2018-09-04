@@ -7,7 +7,8 @@ const fsAccess = promisify(fs.access);
 const Joi = require('joi');
 
 const JOI_CONFIG_SCHEMA = Joi.object().required().keys({
-	id: Joi.string().required()
+	id: Joi.string().required(),
+	tags: Joi.array().default([])
 });
 
 
@@ -37,12 +38,20 @@ module.exports = class Fragment {
 		return this.config.id;
 	}
 
+	get tags() {
+		return this.config.tags;
+	}
+
 	get serverPath() {
 		return path.join(this.dir, 'server');
 	}
 
 	get configFile() {
 		return path.join(this.dir, 'fragment.config.js');
+	}
+
+	get entryName() {
+		return `f_${this.id}`;
 	}
 
 };

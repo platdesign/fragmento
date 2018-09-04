@@ -12,11 +12,18 @@ const JOI_CONFIG_SCHEMA = Joi.object().required().keys({
 	id: Joi.string().required(),
 
 	backend: Joi.object().keys({
-		port: Joi.number().default(4001)
+		port: Joi.number().default(4001),
+		publicBaseUrl: Joi.string()
 	}).default({ port: undefined }),
 
+	devServer: Joi.object().keys({
+		port: Joi.number().default(4002)
+	}),
 
-	devCommand: Joi.string()
+	devCommand: Joi.string(),
+
+	publicPath: Joi.string().default('/assets/'),
+
 
 });
 

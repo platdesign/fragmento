@@ -8,15 +8,23 @@ const fcwd = require('@fragmento/cwd');
 const fs = require('fs');
 
 
+
+function stripDoubleSlash(str) {
+	return str.replace(/\/\//, '/');
+}
+
+
 module.exports = async (cwd) => {
 
 	const fragments = fcwd.getFragments(cwd);
 	const mainConfig = fcwd.getProjectConfig(cwd);
 
 
+
+
 	const server = new Hapi.Server({
 		host: '0.0.0.0',
-		port: mainConfig.backend.port,
+		port: process.env.NODE_ENV === 'production' ? mainConfig.backend.port : mainConfig.devServer.port,
 		routes: {
 			cors: {
 				origin: ['*']
@@ -39,51 +47,52 @@ module.exports = async (cwd) => {
 	});
 
 
-	// let assetServerUrl = 'http://localhost:9401';
-
-	// if(process.env.NODE_ENV === 'production') {
-	// 	assetServerUrl = 'http://localhost:5321';
-	// }
+	let publicBaseUrl = mainConfig.backend.publicBaseUrl || `http://0.0.0.0:${mainConfig.backend.port}`;
 
 
-	// let pFragments;
+	let pFragments;
 
-	// if(process.env.NODE_ENV !== 'production') {
-	// 	pFragments = Array.from(fragments).map(f => ({
-	// 		id: f.id,
-	// 		serverId: mainConfig.id,
-	// 		url: `${assetServerUrl}/${f.id}.js`,
-	// 		tags: f.tags,
-	// 		dependencies: []
-	// 	}));
-	// } else {
+	if(process.env.NODE_ENV !== 'production') {
+		pFragments = Array.from(fragments).map(f => ({
+			id: f.id,
+			url: `${publicBaseUrl}${mainConfig.publicPath}${f.entryName}.js`,
+			tags: f.tags,
+			apiBaseUrl: `${publicBaseUrl}/api/fragments/${f.id}`,
+			dependencies: []
+		}));
+	} else {
 
-	// 	let manifest = require(path.join(cwd, 'dist', 'manifest.json'))
+		let manifest = require(path.join(cwd, 'dist', 'manifest.json'))
 
-	// 	pFragments = Array.from(fragments).map(f => ({
-	// 		id: f.id,
-	// 		serverId: mainConfig.id,
-	// 		url: `${assetServerUrl}${manifest[f.id+'.js']}`,
-	// 		tags: f.tags,
-	// 		dependencies: [
-	// 			`${assetServerUrl}${manifest['chunk-vendors.js']}`,
-	// 		]
-	// 	}));
-	// }
+		pFragments = Array.from(fragments).map(f => ({
+			id: f.id,
+			url: publicBaseUrl + stripDoubleSlash(`${mainConfig.publicPath}${manifest[f.entryName+'.js']}`),
+			tags: f.tags,
+			apiBaseUrl: `${publicBaseUrl}/api/fragments/${f.id}`,
+			dependencies: [
+				publicBaseUrl + stripDoubleSlash(`${mainConfig.publicPath}${manifest['chunk-vendors.js']}`),
+			]
+		}));
+	}
 
 
 
+	let probe = {
+		serverId: mainConfig.id,
+		baseUrl: publicBaseUrl,
+		fragments: pFragments
+	};
 
-	// server.route({
-	// 	method: 'GET',
-	// 	path: '/probe',
-	// 	handler: () => {
-	// 		return {
-	// 			serverId: mainConfig.id,
-	// 			fragments: pFragments
-	// 		}
-	// 	}
-	// });
+
+
+
+	server.route({
+		method: 'GET',
+		path: '/api/probe',
+		handler: () => {
+			return probe
+		}
+	});
 
 
 
@@ -96,7 +105,7 @@ module.exports = async (cwd) => {
 	// register fragment assets route
 	server.route({
 		method: 'GET',
-		path: '/assets/{param*}',
+		path: `${mainConfig.publicPath}{param*}`,
 		handler: {
 			directory: {
 				path: path.join(cwd, 'dist'),
@@ -116,7 +125,7 @@ module.exports = async (cwd) => {
 
 		if(fs.existsSync(apiFolder)) {
 			server.registerRoutesFromDir(apiFolder, {
-				prefix: `/fragments/${fragment.id}/api`
+				prefix: `/api/fragments/${fragment.id}`
 			}, factory => factory(container));
 		}
 
