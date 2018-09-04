@@ -9,7 +9,7 @@
       "url": "https://github.com/platdesign"
     }
   ],
-  "version": "0.0.5",
+  "version": "0.1.1",
   "dependencies": {
     "glob": "^7.1.2",
     "glob-promise": "^3.4.0",
