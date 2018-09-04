@@ -18,6 +18,7 @@
   "scripts": {
     "lerna": "lerna",
     "bootstrap": "lerna bootstrap",
+    "publish": "lerna publish",
     "test:w": "lerna run test:w --parallel"
   }
 }
