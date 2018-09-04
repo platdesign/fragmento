@@ -8,10 +8,17 @@
       "url": "https://github.com/platdesign"
     }
   ],
+  "bin": {
+    "fragmento": "./bin/fragmento.js"
+  },
   "version": "0.0.2",
   "dependencies": {
     "@fragmento/cwd": "^0.0.5",
-    "commander": "^2.16.0"
+    "commander": "^2.16.0",
+    "nodemon": "^1.18.3"
+  },
+  "peerDependencies": {
+    "@fragmento/server-hapi": "*"
   },
   "repository": "",
   "scripts": {

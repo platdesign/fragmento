@@ -1,0 +1,20 @@
+{
+  "name": "@fragmento/vue-cli-plugin-fragmento",
+  "description": "Vue cli plugin",
+  "author": [
+    {
+      "name": "Christian Blaschke",
+      "email": "mail@platdesign.de",
+      "url": "https://github.com/platdesign"
+    }
+  ],
+  "version": "0.0.0",
+  "repository": "",
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@fragmento/cwd": "*",
+    "webpack-manifest-plugin": "^2.0.3"
+  }
+}

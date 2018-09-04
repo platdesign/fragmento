@@ -10,13 +10,13 @@ const fs = require('fs');
 
 module.exports = async (cwd) => {
 
-	const fragments = await fcwd.getFragments(cwd);
-	const mainConfig = await fcwd.getProjectConfig(cwd);
+	const fragments = fcwd.getFragments(cwd);
+	const mainConfig = fcwd.getProjectConfig(cwd);
 
 
 	const server = new Hapi.Server({
 		host: '0.0.0.0',
-		port: mainConfig.server.port,
+		port: mainConfig.backend.port,
 		routes: {
 			cors: {
 				origin: ['*']

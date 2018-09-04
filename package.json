@@ -14,10 +14,10 @@
     "code": "^5.2.0",
     "lerna": "^3.0.0-rc.0",
     "mocha": "^5.2.0"
-
   },
   "scripts": {
     "lerna": "lerna",
+    "bootstrap": "lerna bootstrap",
     "test:w": "lerna run test:w --parallel"
   }
 }

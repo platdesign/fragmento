@@ -17,11 +17,9 @@ module.exports = class Fragment {
 		this.dir = dir;
 	}
 
-	async init() {
+	init() {
 
-		let configFile = path.join(this.dir, 'fragment.config.js');
-
-		let config = require(configFile);
+		let config = require(this.configFile);
 
 		let { error, value } = Joi.validate(config, JOI_CONFIG_SCHEMA);
 
@@ -31,6 +29,8 @@ module.exports = class Fragment {
 
 		this.config = Object.assign({}, value);
 
+		this.config.id = this.config.id.replace(/\-/g, '_');
+
 	}
 
 	get id() {
@@ -39,6 +39,10 @@ module.exports = class Fragment {
 
 	get serverPath() {
 		return path.join(this.dir, 'server');
+	}
+
+	get configFile() {
+		return path.join(this.dir, 'fragment.config.js');
 	}
 
 };
