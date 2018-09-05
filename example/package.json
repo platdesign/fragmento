@@ -1,0 +1,32 @@
+{
+  "name": "hello-world",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "fragmento run",
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "start": "NODE_ENV=production fragmento run -p"
+  },
+  "dependencies": {
+    "@fragmento/cli": "^0.1.2",
+    "@fragmento/server-hapi": "^0.1.2"
+  },
+  "devDependencies": {
+    "@fragmento/vue-cli-plugin-fragmento": "^0.1.2",
+    "@vue/cli-plugin-babel": "^3.0.0",
+    "@vue/cli-service": "^3.0.1",
+    "html-webpack-inline-source-plugin": "0.0.10",
+    "node-sass": "^4.9.0",
+    "pug": "^2.0.3",
+    "pug-plain-loader": "^1.0.0",
+    "sass-loader": "^7.0.1",
+    "vue-template-compiler": "^2.5.17",
+    "vue": "^2.5.17",
+    "vue-router": "^3.0.1",
+    "vuex": "^3.0.1"
+  },
+  "author": {
+    "name": "Christian Blaschke"
+  }
+}
