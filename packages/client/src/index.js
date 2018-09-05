@@ -1,7 +1,7 @@
 'use strict';
 
 
-import { loadScript, loadJsonP } from './loader';
+import { loadScript, loadJsonP, loadCss } from './loader';
 
 
 
@@ -25,11 +25,18 @@ class Fragment {
 			if(this.$options.hasOwnProperty('dependencies')) {
 				if(Array.isArray(this.$options.dependencies) && this.$options.dependencies.length) {
 					for(let dep of this.$options.dependencies) {
-						await this.$client.$registry.load(dep);
+						await this.$client.$registry.loadScript(dep);
 					}
 				}
 			}
 
+			if(this.$options.hasOwnProperty('styles')) {
+				if(Array.isArray(this.$options.styles) && this.$options.styles.length) {
+					for(let dep of this.$options.styles) {
+						await this.$client.$registry.loadCss(dep);
+					}
+				}
+			}
 
 
 			let jsonpFn = `f_${this.$options.id}`;
@@ -37,9 +44,9 @@ class Fragment {
 			this.$content = content;
 			this.$content.__fragmento.loaded(this);
 
-		} else {
-			return this.content;
 		}
+
+		return this.content;
 
 	}
 
@@ -54,10 +61,13 @@ class Registry {
 		this.$scripts = new Set();
 	}
 
-	async load(url) {
-		await loadScript(url);
+	async loadScript(url) {
+		return loadScript(url);
 	}
 
+	async loadCss(url) {
+		return loadCss(url);
+	}
 }
 
 

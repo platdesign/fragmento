@@ -58,7 +58,9 @@ module.exports = async (cwd) => {
 			url: `${publicBaseUrl}${mainConfig.publicPath}${f.entryName}.js`,
 			tags: f.tags,
 			apiBaseUrl: `${publicBaseUrl}/api/fragments/${f.id}`,
-			dependencies: []
+			dependencies: [],
+			styles: [],
+			assetsUrl: publicBaseUrl + mainConfig.publicPath,
 		}));
 	} else {
 
@@ -70,8 +72,12 @@ module.exports = async (cwd) => {
 			tags: f.tags,
 			apiBaseUrl: `${publicBaseUrl}/api/fragments/${f.id}`,
 			dependencies: [
-				publicBaseUrl + stripDoubleSlash(`${mainConfig.publicPath}${manifest['chunk-vendors.js']}`),
-			]
+				publicBaseUrl + stripDoubleSlash(`${mainConfig.publicPath}${manifest['chunk-vendors.js']}`)
+			],
+			styles: [
+				publicBaseUrl + stripDoubleSlash(`${mainConfig.publicPath}${manifest[f.entryName+'.css']}`)
+			],
+			assetsUrl: publicBaseUrl + mainConfig.publicPath
 		}));
 	}
 

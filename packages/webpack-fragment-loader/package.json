@@ -1,6 +1,6 @@
 {
   "name": "@fragmento/webpack-fragment-loader",
-  "description": "A project by platdesign.de",
+  "description": "Fragmento webpack fragment loader",
   "author": [
     {
       "name": "Christian Blaschke",
