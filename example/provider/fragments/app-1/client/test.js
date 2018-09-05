@@ -1,6 +1,7 @@
 'use strict';
 
-console.log(123);
-
+export default {
+	test: 123123
+}
 
 

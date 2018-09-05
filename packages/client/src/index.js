@@ -15,14 +15,12 @@ class Fragment {
 	}
 
 	get content() {
-		return this.$content;
+		return this.$content && this.$content.default;
 	}
 
 	async load() {
 
 		if(this.content === null) {
-
-			console.log(this.$options)
 
 			if(this.$options.hasOwnProperty('dependencies')) {
 				if(Array.isArray(this.$options.dependencies) && this.$options.dependencies.length) {
@@ -36,8 +34,8 @@ class Fragment {
 
 			let jsonpFn = `f_${this.$options.id}`;
 			let content = await loadJsonP(jsonpFn, this.$options.url);
-
 			this.$content = content;
+			this.$content.__fragmento.loaded(this);
 
 		} else {
 			return this.content;

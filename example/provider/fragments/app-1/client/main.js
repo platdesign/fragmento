@@ -5,7 +5,7 @@
 
 
 export default {
-	loaded() {
-		import('./test');
-	}
+
+	loadApp: async () => (await import('./test')).default
+
 }

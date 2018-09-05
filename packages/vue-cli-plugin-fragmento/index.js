@@ -76,12 +76,23 @@ module.exports = async (api, projectOptions) => {
 
 
 
+		wconfig
+			.resolveLoader
+			.modules
+			.add(path.join(__dirname, 'node_modules'));
+
+		// resolveLoader: {
+		//     alias: {
+		//       "jade-loader-custom": path.join(__dirname, "./jade-loader-custom")
+		//     }
+		//   },
+
 
 		for(let fragment of fragments) {
 
 			wconfig
 				.entry(fragment.entryName)
-				.add(path.join(fragment.dir, 'client', 'main.js'));
+				.add('@fragmento/webpack-fragment-loader!' + path.join(fragment.dir, 'client', 'main.js'));
 
 		}
 

@@ -34,7 +34,7 @@ const loadJsonP = async function(fn, url) {
 
 		await loadScript(url);
 
-		resolve(es6Default(payload));
+		resolve(payload);
 	});
 }
 
