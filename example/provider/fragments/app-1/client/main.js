@@ -2,8 +2,10 @@
 
 
 
+
+
 export default {
 	loaded() {
-		console.log('123');
+		import('./test');
 	}
 }

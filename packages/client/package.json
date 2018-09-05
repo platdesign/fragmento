@@ -2,6 +2,7 @@
   "name": "@fragmento/client",
   "private": false,
   "description": "Fragemnto Browser client",
+  "main": "./src",
   "author": [
     {
       "name": "Christian Blaschke",
@@ -11,7 +12,7 @@
   ],
   "version": "0.0.0",
   "dependencies": {},
-  "repository":"",
+  "repository": "",
   "publishConfig": {
     "access": "public"
   }
