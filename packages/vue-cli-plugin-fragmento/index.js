@@ -5,9 +5,10 @@ const ManifestPlugin = require('webpack-manifest-plugin');
 const { getProjectConfig, getFragments } = require('@fragmento/cwd');
 
 
+const CWD = process.env.INIT_CWD || process.env.PWD;
 
-const projectConfig = getProjectConfig(process.env.INIT_CWD);
-const fragments = getFragments(process.env.INIT_CWD);
+const projectConfig = getProjectConfig(CWD);
+const fragments = getFragments(CWD);
 
 
 
@@ -45,6 +46,9 @@ module.exports = async (api, projectOptions) => {
 
 	api.chainWebpack(wconfig => {
 		wconfig.resolve.alias.set('vue$', 'vue/dist/vue.esm.js');
+
+
+		wconfig.resolve.alias.set('@', path.join(CWD));
 
 
 		// do not clear console
@@ -98,7 +102,8 @@ module.exports = async (api, projectOptions) => {
 
 
 		wconfig.externals({
-			'vue': 'Vue'
+			'vue': 'Vue',
+			'axios': 'axios'
 		});
 
 

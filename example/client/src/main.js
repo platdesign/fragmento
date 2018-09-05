@@ -6,6 +6,7 @@ import { Client } from '@fragmento/client';
 import axios from 'axios';
 
 global.Vue = Vue;
+global.axios = axios;
 
 const fclient = new Client();
 
