@@ -52,12 +52,14 @@ program
 				});
 			}
 
+
 			nodemon({
 				script: scripts.server,
 				ext: 'js json',
 				watch: [
 					...fragments.map(f => f.serverPath),
-					...fragments.map(f => f.configFile)
+					...fragments.map(f => f.configFile),
+					path.join(CWD, 'server')
 				],
 				env: {
 					...process.env

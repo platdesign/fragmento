@@ -38,8 +38,8 @@ module.exports = class Fragment {
 		return this.config.id;
 	}
 
-	get tags() {
-		return this.config.tags;
+	get labels() {
+		return this.config.labels;
 	}
 
 	get serverPath() {
@@ -52,6 +52,42 @@ module.exports = class Fragment {
 
 	get entryName() {
 		return `f_${this.id}`;
+	}
+
+	get entryFilename() {
+		return `${this.entryName}.js`;
+	}
+
+	get apiPath() {
+		return `/api/f/${this.id}`;
+	}
+
+
+
+
+	getProbe({ assetsMap, providerConfig }) {
+		return {
+			id: this.id,
+			labels: this.labels,
+			provider: {
+				url: '//localhost:5003',
+				assetsPath: '/assets/',
+				apiPath: this.apiPath,
+			},
+			src: {
+				entry: assetsMap.get(this.entryFilename),
+				deps: [
+					{
+						type: 'script',
+						src: ''
+					},
+					{
+						type: 'style',
+						src: ''
+					}
+				]
+			}
+		}
 	}
 
 };

@@ -5,6 +5,7 @@ Vue.config.productionTip = false
 //import router from './router'
 import store from './store'
 
+
 import { Client } from '@fragmento/client';
 import axios from 'axios';
 
@@ -30,7 +31,7 @@ const fclient = new Client();
 
 	const app = new Vue({
 	//  router,
-	  store,
+	//  store,
 	  template: '<div><app1/><app2/></div>'
 	}).$mount('#app');
 

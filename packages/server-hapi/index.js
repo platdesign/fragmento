@@ -21,7 +21,6 @@ module.exports = async (cwd) => {
 
 
 
-
 	const server = new Hapi.Server({
 		host: '0.0.0.0',
 		port: process.env.NODE_ENV === 'production' ? mainConfig.backend.port : mainConfig.devServer.port,
@@ -31,6 +30,7 @@ module.exports = async (cwd) => {
 			}
 		}
 	});
+
 
 	await server.register(require('inert'));
 
@@ -103,6 +103,8 @@ module.exports = async (cwd) => {
 
 
 
+	const providerServerDir = path.join(cwd, 'server');
+	await require(providerServerDir)(server);
 
 
 
