@@ -75,7 +75,7 @@ module.exports = async (cwd) => {
 				publicBaseUrl + stripDoubleSlash(`${mainConfig.publicPath}${manifest['chunk-vendors.js']}`)
 			],
 			styles: [
-				publicBaseUrl + stripDoubleSlash(`${mainConfig.publicPath}${manifest[f.entryName+'.css']}`)
+				...(manifest.hasOwnProperty(f.entryName+'.css') ? [ publicBaseUrl + stripDoubleSlash(`${mainConfig.publicPath}${manifest[f.entryName+'.css']}`) ] : [])
 			],
 			assetsUrl: publicBaseUrl + mainConfig.publicPath
 		}));

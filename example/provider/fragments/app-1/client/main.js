@@ -6,6 +6,4 @@ import Vue from 'vue';
 Vue.component('app1', async () => import('./components/hello'));
 
 
-
-
 export default {}
