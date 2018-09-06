@@ -6,6 +6,6 @@ module.exports = () => ({
 	method: 'GET',
 	path: '/',
 	handler(req, h) {
-		return 123123123
+		return 'asdqwe'
 	}
 })

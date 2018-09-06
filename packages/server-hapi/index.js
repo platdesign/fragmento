@@ -57,7 +57,7 @@ module.exports = async (cwd) => {
 			id: f.id,
 			url: `${publicBaseUrl}${mainConfig.publicPath}${f.entryName}.js`,
 			tags: f.tags,
-			apiBaseUrl: `${publicBaseUrl}/api/fragments/${f.id}`,
+			apiBaseUrl: `${publicBaseUrl}/api/f/${f.id}`,
 			dependencies: [],
 			styles: [],
 			assetsUrl: publicBaseUrl + mainConfig.publicPath,
@@ -70,7 +70,7 @@ module.exports = async (cwd) => {
 			id: f.id,
 			url: publicBaseUrl + stripDoubleSlash(`${mainConfig.publicPath}${manifest[f.entryName+'.js']}`),
 			tags: f.tags,
-			apiBaseUrl: `${publicBaseUrl}/api/fragments/${f.id}`,
+			apiBaseUrl: `${publicBaseUrl}/api/f/${f.id}`,
 			dependencies: [
 				publicBaseUrl + stripDoubleSlash(`${mainConfig.publicPath}${manifest['chunk-vendors.js']}`)
 			],
@@ -131,7 +131,7 @@ module.exports = async (cwd) => {
 
 		if(fs.existsSync(apiFolder)) {
 			server.registerRoutesFromDir(apiFolder, {
-				prefix: `/api/fragments/${fragment.id}`
+				prefix: `/api/f/${fragment.id}`
 			}, factory => factory(container));
 		}
 
