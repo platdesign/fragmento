@@ -1,16 +1,18 @@
 'use strict';
 
 
-module.exports = function(content) {
+module.exports = function() {};
+module.exports.pitch = function(remainingRequest, precedingRequest, data) {
 
-	// this.cacheable && this.cacheable();
-	// this.value = content;
+	return `
+		module.exports = function(fragment) {
 
-
-	return content +
-		`export const __fragmento = { loaded: function(fragment) {
 			process.fragment = fragment;
 			__webpack_public_path__ = fragment.$options.assetsUrl;
-		}}`;
+
+			return require(${JSON.stringify('-!' + remainingRequest)});
+		};
+	`;
 }
+
 module.exports.seperable = true;

@@ -1,10 +1,11 @@
 'use strict';
 
+import api from '@/shared/api';
+import Vue from 'vue';
 
-export default {
+Vue.component('app1', async () => import('./components/hello'));
 
-	init(app) {
-		Vue.component('hello', require('./components/hello').default);
-	}
 
-}
+
+
+export default {}

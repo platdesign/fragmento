@@ -42,8 +42,8 @@ class Fragment {
 
 			let jsonpFn = `f_${this.$options.id}`;
 			let content = await loadJsonP(jsonpFn, this.$options.url);
-			this.$content = content;
-			this.$content.__fragmento.loaded(this);
+
+			this.$content = content(this);
 
 		}
 
