@@ -1,0 +1,19 @@
+[
+  {
+    "id": "app1",
+    "labels": [
+      "menio",
+      "console-app"
+    ],
+    "provider": {
+      "id": "testa",
+      "url": "//localhost:5001",
+      "assetsPath": "/assets/",
+      "apiPath": "/api/f/app1"
+    },
+    "src": {
+      "entry": "f_app1.js",
+      "deps": []
+    }
+  }
+]
