@@ -1,6 +1,7 @@
 'use strict';
 
 
+
 const program = require('commander');
 const CWD = process.env.INIT_CWD;
 const path = require('path');
@@ -26,13 +27,13 @@ program
 program
 	.command('run')
 	.option('-p, --production', 'Run production server')
-	.action(async (cmd) => {
+	.action(async(cmd) => {
 
 		let fragments = fcwd.getFragments(CWD);
 		let config = fcwd.getProjectConfig(CWD);
 
 
-		if(cmd.production) {
+		if (cmd.production) {
 			spawn('node', ['--preserve-symlinks', scripts.server], {
 				cwd: CWD,
 				stdio: 'inherit',
@@ -42,7 +43,7 @@ program
 			});
 		} else {
 
-			if(config.devCommand) {
+			if (config.devCommand) {
 
 				let cmd = config.devCommand.split(' ');
 

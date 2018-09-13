@@ -4,14 +4,10 @@ const path = require('path');
 const ManifestPlugin = require('webpack-manifest-plugin');
 const { getProjectConfig, getFragments } = require('@fragmento/cwd');
 
-
 const CWD = process.env.INIT_CWD || process.env.PWD;
 
 const projectConfig = getProjectConfig(CWD);
 const fragments = getFragments(CWD);
-
-
-
 
 
 
@@ -41,8 +37,7 @@ function devServerConfig() {
 
 
 
-
-module.exports = async (api, projectOptions) => {
+module.exports = async(api, projectOptions) => {
 
 	api.chainWebpack(wconfig => {
 		wconfig.resolve.alias.set('vue$', 'vue/dist/vue.esm.js');
@@ -71,7 +66,7 @@ module.exports = async (api, projectOptions) => {
 			.jsonpFunction(`webpackJsonp_${projectConfig.id}`);
 
 
-		if(api.service.mode === 'production') {
+		if (api.service.mode === 'production') {
 			wconfig.devtool(false);
 
 			wconfig.output
@@ -92,7 +87,7 @@ module.exports = async (api, projectOptions) => {
 		//   },
 
 
-		for(let fragment of fragments) {
+		for (let fragment of fragments) {
 
 			wconfig
 				.entry(fragment.entryName)
@@ -123,7 +118,7 @@ module.exports = async (api, projectOptions) => {
 	});
 
 
-	if(api.service.mode === 'development') {
+	if (api.service.mode === 'development') {
 		projectOptions.devServer = devServerConfig();
 	}
 

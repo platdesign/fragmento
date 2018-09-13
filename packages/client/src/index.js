@@ -2,6 +2,7 @@
 
 
 
+
 import { loadScript, loadJsonP, loadCss } from './loader';
 
 
@@ -21,19 +22,19 @@ class Fragment {
 
 	async load() {
 
-		if(this.content === null) {
+		if (this.content === null) {
 
-			if(this.$options.hasOwnProperty('dependencies')) {
-				if(Array.isArray(this.$options.dependencies) && this.$options.dependencies.length) {
-					for(let dep of this.$options.dependencies) {
+			if (this.$options.hasOwnProperty('dependencies')) {
+				if (Array.isArray(this.$options.dependencies) && this.$options.dependencies.length) {
+					for (let dep of this.$options.dependencies) {
 						await this.$client.$registry.loadScript(dep);
 					}
 				}
 			}
 
-			if(this.$options.hasOwnProperty('styles')) {
-				if(Array.isArray(this.$options.styles) && this.$options.styles.length) {
-					for(let dep of this.$options.styles) {
+			if (this.$options.hasOwnProperty('styles')) {
+				if (Array.isArray(this.$options.styles) && this.$options.styles.length) {
+					for (let dep of this.$options.styles) {
 						await this.$client.$registry.loadCss(dep);
 					}
 				}

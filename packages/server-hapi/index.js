@@ -1,6 +1,5 @@
 'use strict';
 
-'use strict';
 
 const Hapi = require('hapi');
 const path = require('path');
@@ -14,7 +13,7 @@ function stripDoubleSlash(str) {
 }
 
 
-module.exports = async (cwd) => {
+module.exports = async(cwd) => {
 
 	const fragments = fcwd.getFragments(cwd);
 	const mainConfig = fcwd.getProjectConfig(cwd);
@@ -52,7 +51,7 @@ module.exports = async (cwd) => {
 
 	let pFragments;
 
-	if(process.env.NODE_ENV !== 'production') {
+	if (process.env.NODE_ENV !== 'production') {
 		pFragments = Array.from(fragments).map(f => ({
 			id: f.id,
 			url: `${publicBaseUrl}${mainConfig.publicPath}${f.entryName}.js`,
@@ -75,7 +74,7 @@ module.exports = async (cwd) => {
 				publicBaseUrl + stripDoubleSlash(`${mainConfig.publicPath}${manifest['chunk-vendors.js']}`)
 			],
 			styles: [
-				...(manifest.hasOwnProperty(f.entryName+'.css') ? [ publicBaseUrl + stripDoubleSlash(`${mainConfig.publicPath}${manifest[f.entryName+'.css']}`) ] : [])
+				...(manifest.hasOwnProperty(f.entryName + '.css') ? [publicBaseUrl + stripDoubleSlash(`${mainConfig.publicPath}${manifest[f.entryName+'.css']}`)] : [])
 			],
 			assetsUrl: publicBaseUrl + mainConfig.publicPath
 		}));
@@ -109,7 +108,6 @@ module.exports = async (cwd) => {
 
 
 
-
 	// register fragment assets route
 	server.route({
 		method: 'GET',
@@ -127,18 +125,17 @@ module.exports = async (cwd) => {
 
 
 	// Register fragment api routes
-	for(let fragment of fragments) {
+	for (let fragment of fragments) {
 
 		let apiFolder = path.join(fragment.serverPath, 'api');
 
-		if(fs.existsSync(apiFolder)) {
+		if (fs.existsSync(apiFolder)) {
 			server.registerRoutesFromDir(apiFolder, {
 				prefix: `/api/f/${fragment.id}`
 			}, factory => factory(container));
 		}
 
 	}
-
 
 
 
