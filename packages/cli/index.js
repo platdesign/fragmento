@@ -1,3 +1,6 @@
+/**
+ * author     Christian Blaschke <mail@platdesign.de>
+ */
 'use strict';
 
 
