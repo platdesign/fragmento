@@ -7,7 +7,6 @@ const fcwd = require('@fragmento/cwd');
 const fs = require('fs');
 
 
-
 function stripDoubleSlash(str) {
 	return str.replace(/\/\//, '/');
 }

@@ -11,7 +11,6 @@ const fragments = getFragments(CWD);
 
 
 
-
 function devServerConfig() {
 	return {
 		// If devServer is needed use backend port and set up proxy

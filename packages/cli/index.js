@@ -1,7 +1,6 @@
 'use strict';
 
 
-
 const program = require('commander');
 const CWD = process.env.INIT_CWD;
 const path = require('path');
