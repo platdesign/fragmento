@@ -20,5 +20,6 @@
     "e4x": false,
     "comma_first": false,
     "operator_position": "before-newline",
-    "brace_style": "collapse-preserve-inline"
+    "brace_style": "collapse-preserve-inline",
+    "allowed_file_extensions": ["js"]
 }

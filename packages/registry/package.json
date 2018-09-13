@@ -11,7 +11,7 @@
 			"url": "https://github.com/platdesign"
 		}
 	],
-	"version": "1.0.3",
+	"version": "1.0.4",
 	"dependencies": {
 		"hoek": "^5.0.4",
 		"joi": "^13.6.0"
