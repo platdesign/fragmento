@@ -17,7 +17,6 @@
 	},
 	"scripts": {
 		"lerna": "lerna",
-		"version": "lerna version",
 		"bootstrap": "lerna bootstrap",
 		"publish": "lerna publish --force-publish=*",
 		"test:w": "lerna run test:w --parallel"
