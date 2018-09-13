@@ -5,6 +5,7 @@
 'use strict';
 
 
+
 const Hapi = require('hapi');
 const path = require('path');
 const fcwd = require('@fragmento/cwd');
@@ -93,7 +94,6 @@ module.exports = async(cwd) => {
 
 
 
-
 	server.route({
 		method: 'GET',
 		path: '/api/probe',
@@ -104,10 +104,8 @@ module.exports = async(cwd) => {
 
 
 
-
 	const providerServerDir = path.join(cwd, 'server');
 	await require(providerServerDir)(server);
-
 
 
 
@@ -126,7 +124,6 @@ module.exports = async(cwd) => {
 
 
 
-
 	// Register fragment api routes
 	for (let fragment of fragments) {
 
@@ -139,7 +136,6 @@ module.exports = async(cwd) => {
 		}
 
 	}
-
 
 
 
