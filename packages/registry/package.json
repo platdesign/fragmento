@@ -1,0 +1,27 @@
+{
+	"name": "@fragmento/registry",
+	"publishConfig": {
+		"access": "public"
+	},
+	"description": "A project by platdesign.de",
+	"author": [{
+		"name": "Christian Blaschke",
+		"email": "mail@platdesign.de",
+		"url": "https://github.com/platdesign"
+	}],
+	"version": "0.0.0",
+	"dependencies": {
+		"hoek": "^5.0.4",
+		"joi": "^13.6.0"
+	},
+	"repository": "",
+	"scripts": {
+		"test": "mocha",
+		"test:w": "npm run test -- -w"
+	},
+	"devDependencies": {
+		"code": "^5.2.0",
+		"mocha": "^5.2.0",
+		"sinon": "^6.2.0"
+	}
+}
