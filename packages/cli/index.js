@@ -8,8 +8,10 @@ const program = require('commander');
 const CWD = process.env.INIT_CWD;
 const path = require('path');
 const pkg = require('./package.json');
-const fcwd = require('@fragmento/cwd');
-const { spawn } = require('child_process');
+const Provider = require('@fragmento/provider');
+const {
+	spawn
+} = require('child_process');
 const nodemon = require('nodemon');
 
 
@@ -31,8 +33,16 @@ program
 	.option('-p, --production', 'Run production server')
 	.action(async(cmd) => {
 
-		let fragments = fcwd.getFragments(CWD);
-		let config = fcwd.getProjectConfig(CWD);
+		let provider = new Provider(CWD);
+
+
+		let {
+			$fragmentsArray: fragments,
+			$config: config
+		} = provider;
+
+		// let fragments = fcwd.getFragments(CWD);
+		// let config = fcwd.getProjectConfig(CWD);
 
 
 		if (cmd.production) {

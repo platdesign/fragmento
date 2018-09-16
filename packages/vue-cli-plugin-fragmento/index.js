@@ -6,12 +6,14 @@
 
 const path = require('path');
 const ManifestPlugin = require('webpack-manifest-plugin');
-const { getProjectConfig, getFragments } = require('@fragmento/cwd');
+const Provider = require('@fragmento/provider');
 
 const CWD = process.env.INIT_CWD || process.env.PWD;
+const provider = new Provider(CWD);
 
-const projectConfig = getProjectConfig(CWD);
-const fragments = getFragments(CWD);
+
+const projectConfig = provider.$config;
+const fragments = provider.$fragmentsArray;
 
 
 
@@ -29,14 +31,13 @@ function devServerConfig() {
 		publicPath: projectConfig.publicPath,
 		proxy: {
 			'/api': {
-				target: `http://localhost:${projectConfig.devServer.port}`,
+				target: `http://localhost:${projectConfig.dev.server.port}`,
 				ws: true,
 				changeOrigin: true
 			}
 		}
 	}
 }
-
 
 
 
@@ -94,7 +95,7 @@ module.exports = async(api, projectOptions) => {
 
 			wconfig
 				.entry(fragment.entryName)
-				.add('@fragmento/webpack-fragment-loader!' + path.join(fragment.dir, 'client', 'main.js'));
+				.add('@fragmento/webpack-fragment-loader!' + path.join(fragment.clientPath, 'main.js'));
 
 		}
 

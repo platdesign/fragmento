@@ -8,11 +8,11 @@ const Hoek = require('hoek');
 
 function requireFirstAvailable(places) {
 	let mod = {};
-	for(let f of places) {
+	for (let f of places) {
 		try {
 			mod = require(f);
 			break;
-		} catch(e) {
+		} catch (e) {
 			continue;
 		}
 	}
@@ -21,15 +21,21 @@ function requireFirstAvailable(places) {
 
 
 
-function loadConfig(places, { schema, defaults }) {
+function loadConfig(places, {
+	schema,
+	defaults
+}) {
 
 	let configured = requireFirstAvailable(places);
 
 	let merged = Hoek.applyToDefaults(defaults, configured);
 
-	let { error, value:validated } = Joi.validate(merged, schema);
+	let {
+		error,
+		value: validated
+	} = Joi.validate(merged, schema);
 
-	if(error) {
+	if (error) {
 		throw error;
 	}
 

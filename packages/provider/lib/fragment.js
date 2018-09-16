@@ -1,9 +1,10 @@
 'use strict';
 
 const path = require('path');
-const { loadConfig } = require('./utils');
+const {
+	loadConfig
+} = require('./utils');
 const CONFIG_SCHEMA = require('./schemas/fragment-config');
-
 
 
 
@@ -15,7 +16,8 @@ module.exports = class Fragment {
 		this.$provider = provider;
 
 		this.$config = loadConfig([
-			this._resolvePath('fragment.js')
+			this._resolvePath('fragment.js'),
+			this._resolvePath('fragment.config.js'),
 		], CONFIG_SCHEMA);
 	}
 
@@ -56,6 +58,14 @@ module.exports = class Fragment {
 
 
 
+	get serverPath() {
+		return this._resolvePath('server');
+	}
+
+	get clientPath() {
+		return this._resolvePath('client');
+	}
+
 	get probe() {
 		let probe = {
 			id: this.id,
@@ -76,9 +86,8 @@ module.exports = class Fragment {
 
 
 
-
 		// add dependencies in poduction
-		if(this.$provider._isProd) {
+		if (this.$provider._isProd) {
 
 			// add chunk-vendors.js (replaced manifest.json entry)
 			probe.src.deps.push({
@@ -88,7 +97,7 @@ module.exports = class Fragment {
 
 			// add fragment entry-styles if available
 			let stylesEntry = this.entryName + '.css';
-			if(this.$provider.$assetManifest.has(stylesEntry)) {
+			if (this.$provider.$assetManifest.has(stylesEntry)) {
 				probe.src.deps.push({
 					type: 'style',
 					src: this.$provider.asset(this.$provider.asset(stylesEntry))
@@ -96,7 +105,6 @@ module.exports = class Fragment {
 			}
 
 		}
-
 
 
 

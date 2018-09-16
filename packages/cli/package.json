@@ -13,7 +13,7 @@
   },
   "version": "1.0.8",
   "dependencies": {
-    "@fragmento/cwd": "^1.0.8",
+    "@fragmento/provider": "^1.0.8",
     "commander": "^2.16.0",
     "nodemon": "^1.18.3"
   },

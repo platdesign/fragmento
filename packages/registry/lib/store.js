@@ -21,11 +21,20 @@ const STORE_CONFIG_SCHEMA = Joi.object().required().keys({
 const ITEM_JOI_SCHEMA = Joi.object().required().keys({
 
 	id: Joi.string().required(),
-	labels: Joi.array().items(Joi.string()),
+	labels: Joi.array().items(Joi.string()).required(),
+	provider: Joi.object({
+		id: Joi.string().required(),
+		url: Joi.string().required(),
+		assetsPath: Joi.string().required(),
+		apiPath: Joi.string().required(),
+	}),
+	src: Joi.object({
+		entry: Joi.string().required()
+	})
 
-
+}).options({
+	allowUnknown: true
 });
-
 
 
 
@@ -46,7 +55,10 @@ class Item {
 
 	set value(_value) {
 
-		let { error, value } = Joi.validate(_value, this.$store.$options.itemSchema || ITEM_JOI_SCHEMA);
+		let {
+			error,
+			value
+		} = Joi.validate(_value, this.$store.$options.itemSchema || ITEM_JOI_SCHEMA);
 
 		if (error) {
 			throw error;
@@ -69,7 +81,6 @@ class Item {
 
 
 
-
 module.exports = class Store extends EventEmitter {
 
 	constructor(options = {}) {
@@ -77,7 +88,10 @@ module.exports = class Store extends EventEmitter {
 
 		options = Hoek.applyToDefaults(STORE_CONFIG_DEFAULTS, options);
 
-		const { error, value } = Joi.validate(options, STORE_CONFIG_SCHEMA);
+		const {
+			error,
+			value
+		} = Joi.validate(options, STORE_CONFIG_SCHEMA);
 
 		if (error) {
 			throw error;
@@ -105,7 +119,7 @@ module.exports = class Store extends EventEmitter {
 			if (item.outdated) {
 				this.$map.delete(key);
 				this.emit('removed', item);
-				debug(`Removed outdated item: ${key}`);
+				debug('removed', key);
 			}
 		}
 	}
@@ -118,10 +132,12 @@ module.exports = class Store extends EventEmitter {
 			item = new Item(this, val);
 			this.$map.set(key, item);
 			this.emit('added', item);
+			debug('added', key);
 		} else {
 			item = this.$map.get(key);
 			item.value = val;
 			this.emit('updated', item);
+			debug('updated', key);
 		}
 
 	}

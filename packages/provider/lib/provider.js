@@ -2,11 +2,12 @@
 
 const Fragment = require('./fragment');
 const path = require('path');
-const { loadConfig } = require('./utils');
+const {
+	loadConfig
+} = require('./utils');
 const glob = require('glob');
 
 const CONFIG_SCHEMA = require('./schemas/provider-config');
-
 
 
 
@@ -30,8 +31,11 @@ module.exports = class Provider {
 	}
 
 	_loadFragments() {
-		let fragDirs = glob.sync('./*/', { cwd: this.fragmentsPath, realpath: true });
-		for(let fragPath of fragDirs) {
+		let fragDirs = glob.sync('./*/', {
+			cwd: this.fragmentsPath,
+			realpath: true
+		});
+		for (let fragPath of fragDirs) {
 			let fragment = new Fragment(this, fragPath);
 			this.$fragments.set(fragment.id, fragment);
 		}
@@ -40,10 +44,10 @@ module.exports = class Provider {
 	_loadAssetManifest() {
 		this.$assetManifest = new Map();
 
-		if(this._isProd) {
+		if (this._isProd) {
 			let manifest = require(this._resolvePath('dist', 'manifest.json'))
 
-			for(let [key, val] of Object.entries(manifest)) {
+			for (let [key, val] of Object.entries(manifest)) {
 				this.$assetManifest.set(key, val);
 			}
 		}
@@ -54,7 +58,7 @@ module.exports = class Provider {
 	}
 
 	asset(file) {
-		if(this._isProd && this.$assetManifest.has(file)) {
+		if (this._isProd && this.$assetManifest.has(file)) {
 			return this.$assetManifest.get(file);
 		}
 		return file;

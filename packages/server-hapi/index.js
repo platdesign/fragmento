@@ -8,7 +8,7 @@
 
 const Hapi = require('hapi');
 const path = require('path');
-const fcwd = require('@fragmento/cwd');
+const Provider = require('@fragmento/provider');
 const fs = require('fs');
 
 
@@ -19,14 +19,17 @@ function stripDoubleSlash(str) {
 
 module.exports = async(cwd) => {
 
-	const fragments = fcwd.getFragments(cwd);
-	const mainConfig = fcwd.getProjectConfig(cwd);
+	let provider = new Provider(cwd);
+
+
+	const fragments = provider.$fragmentsArray;
+	const mainConfig = provider.$config;
 
 
 
 	const server = new Hapi.Server({
 		host: '0.0.0.0',
-		port: process.env.NODE_ENV === 'production' ? mainConfig.backend.port : mainConfig.devServer.port,
+		port: process.env.NODE_ENV === 'production' ? mainConfig.backend.port : mainConfig.dev.server.port,
 		routes: {
 			cors: {
 				origin: ['*']
@@ -44,63 +47,58 @@ module.exports = async(cwd) => {
 	await server.register(require('./plugins/dir-routes'));
 
 
-	server.decorate('server', 'fragmento', {
-		fragments,
-		config: mainConfig
-	});
+	server.decorate('server', 'fragmento', provider);
 
 
 	let publicBaseUrl = mainConfig.backend.publicBaseUrl || `http://0.0.0.0:${mainConfig.backend.port}`;
 
 
-	let pFragments;
+	// let pFragments;
 
-	if (process.env.NODE_ENV !== 'production') {
-		pFragments = Array.from(fragments).map(f => ({
-			id: f.id,
-			url: `${publicBaseUrl}${mainConfig.publicPath}${f.entryName}.js`,
-			tags: f.tags,
-			apiBaseUrl: `${publicBaseUrl}/api/f/${f.id}`,
-			dependencies: [],
-			styles: [],
-			assetsUrl: publicBaseUrl + mainConfig.publicPath,
-		}));
-	} else {
+	// if (process.env.NODE_ENV !== 'production') {
+	// 	pFragments = Array.from(fragments).map(f => ({
+	// 		id: f.id,
+	// 		url: `${publicBaseUrl}${mainConfig.publicPath}${f.entryName}.js`,
+	// 		tags: f.tags,
+	// 		apiBaseUrl: `${publicBaseUrl}/api/f/${f.id}`,
+	// 		dependencies: [],
+	// 		styles: [],
+	// 		assetsUrl: publicBaseUrl + mainConfig.publicPath,
+	// 	}));
+	// } else {
 
-		let manifest = require(path.join(cwd, 'dist', 'manifest.json'))
+	// 	let manifest = require(path.join(cwd, 'dist', 'manifest.json'))
 
-		pFragments = Array.from(fragments).map(f => ({
-			id: f.id,
-			url: publicBaseUrl + stripDoubleSlash(`${mainConfig.publicPath}${manifest[f.entryName+'.js']}`),
-			tags: f.tags,
-			apiBaseUrl: `${publicBaseUrl}/api/f/${f.id}`,
-			dependencies: [
-				publicBaseUrl + stripDoubleSlash(`${mainConfig.publicPath}${manifest['chunk-vendors.js']}`)
-			],
-			styles: [
-				...(manifest.hasOwnProperty(f.entryName + '.css') ? [publicBaseUrl + stripDoubleSlash(`${mainConfig.publicPath}${manifest[f.entryName+'.css']}`)] : [])
-			],
-			assetsUrl: publicBaseUrl + mainConfig.publicPath
-		}));
-	}
-
-
-
-	let probe = {
-		serverId: mainConfig.id,
-		baseUrl: publicBaseUrl,
-		fragments: pFragments
-	};
+	// 	pFragments = Array.from(fragments).map(f => ({
+	// 		id: f.id,
+	// 		url: publicBaseUrl + stripDoubleSlash(`${mainConfig.publicPath}${manifest[f.entryName+'.js']}`),
+	// 		tags: f.tags,
+	// 		apiBaseUrl: `${publicBaseUrl}/api/f/${f.id}`,
+	// 		dependencies: [
+	// 			publicBaseUrl + stripDoubleSlash(`${mainConfig.publicPath}${manifest['chunk-vendors.js']}`)
+	// 		],
+	// 		styles: [
+	// 			...(manifest.hasOwnProperty(f.entryName + '.css') ? [publicBaseUrl + stripDoubleSlash(`${mainConfig.publicPath}${manifest[f.entryName+'.css']}`)] : [])
+	// 		],
+	// 		assetsUrl: publicBaseUrl + mainConfig.publicPath
+	// 	}));
+	// }
 
 
 
-	server.route({
-		method: 'GET',
-		path: '/api/probe',
-		handler: () => {
-			return probe
-		}
-	});
+	// let probe = {
+	// 	serverId: mainConfig.id,
+	// 	baseUrl: publicBaseUrl,
+	// 	fragments: pFragments
+	// };
+
+	// server.route({
+	// 	method: 'GET',
+	// 	path: '/api/probe',
+	// 	handler: () => {
+	// 		return probe
+	// 	}
+	// });
 
 
 
@@ -112,7 +110,7 @@ module.exports = async(cwd) => {
 	// register fragment assets route
 	server.route({
 		method: 'GET',
-		path: `${mainConfig.publicPath}{param*}`,
+		path: `${mainConfig.backend.assetsPath}{param*}`,
 		handler: {
 			directory: {
 				path: path.join(cwd, 'dist'),
