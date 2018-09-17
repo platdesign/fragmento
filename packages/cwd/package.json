@@ -11,6 +11,7 @@
   ],
   "version": "1.0.9",
   "dependencies": {
+    "@fragmento/provider": "^1.0.9",
     "glob": "^7.1.2",
     "glob-promise": "^3.4.0",
     "joi": "^13.5.1"

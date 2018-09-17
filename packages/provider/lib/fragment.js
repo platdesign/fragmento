@@ -47,7 +47,7 @@ module.exports = class Fragment {
 
 
 	get entryName() {
-		return `f_${this.id}`;
+		return `f_${this.$provider.id}_${this.id}`;
 	}
 
 

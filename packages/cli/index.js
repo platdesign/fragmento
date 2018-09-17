@@ -41,8 +41,7 @@ program
 			$config: config
 		} = provider;
 
-		// let fragments = fcwd.getFragments(CWD);
-		// let config = fcwd.getProjectConfig(CWD);
+
 
 
 		if (cmd.production) {
@@ -55,9 +54,9 @@ program
 			});
 		} else {
 
-			if (config.devCommand) {
+			if (config.dev.server.cmd) {
 
-				let cmd = config.devCommand.split(' ');
+				let cmd = config.dev.server.cmd.split(' ');
 
 				spawn(cmd.shift(), cmd, {
 					cwd: CWD,

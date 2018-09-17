@@ -12,7 +12,7 @@ module.exports.pitch = function(remainingRequest, precedingRequest, data) {
 		module.exports = function(fragment) {
 
 			process.fragment = fragment;
-			__webpack_public_path__ = fragment.$options.assetsUrl;
+			__webpack_public_path__ = fragment.__webpack_public_path__;
 
 			return require(${JSON.stringify('-!' + remainingRequest)});
 		};

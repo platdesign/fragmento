@@ -29,11 +29,9 @@ const defaults = {
 
 
 
-
-
 const schema = Joi.object().required().keys({
 
-	id: Joi.string().required().alphanum().lowercase(),
+	id: Joi.string().required().regex(/^[a-z_]+$/, 'providerId').lowercase(),
 	labels: Joi.array().required(),
 
 	fragmentsPath: Joi.string().required(),

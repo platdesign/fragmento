@@ -14,7 +14,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@fragmento/cwd": "^1.0.9",
+    "@fragmento/provider": "^1.0.9",
     "@fragmento/webpack-fragment-loader": "^1.0.9",
     "webpack-manifest-plugin": "^2.0.3"
   }

@@ -12,5 +12,8 @@
   "repository": "",
   "publishConfig": {
     "access": "public"
+  },
+  "dependencies": {
+    "@fragmento/provider": "^1.0.9"
   }
 }

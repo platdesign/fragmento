@@ -28,7 +28,7 @@ function devServerConfig() {
 		allowedHosts: ['*'],
 		disableHostCheck: true,
 		open: false,
-		publicPath: projectConfig.publicPath,
+		publicPath: projectConfig.backend.assetsPath,
 		proxy: {
 			'/api': {
 				target: `http://localhost:${projectConfig.dev.server.port}`,
