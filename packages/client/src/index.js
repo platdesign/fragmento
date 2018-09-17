@@ -47,6 +47,27 @@ class Fragment {
 		if (this.content === null) {
 
 
+			if (this.$options.src.hasOwnProperty('deps')) {
+
+				if (Array.isArray(this.$options.src.deps) && this.$options.src.deps.length) {
+
+					await Promise.all(this.$options.src.deps.map(async dep => {
+						let depUri = this._assetsBaseUrl + dep.src;
+
+						if (dep.type === 'script') {
+							await this.$client.$registry.loadScript(depUri);
+						}
+
+						if (dep.type === 'style') {
+							await this.$client.$registry.loadCss(depUri);
+						}
+					}));
+
+				}
+
+			}
+
+
 			// 	if (this.$options.hasOwnProperty('dependencies')) {
 			// 		if (Array.isArray(this.$options.dependencies) && this.$options.dependencies.length) {
 			// 			for (let dep of this.$options.dependencies) {
@@ -110,7 +131,6 @@ class Client {
 
 }
 
-console.log('asd')
 
 export {
 	Client
