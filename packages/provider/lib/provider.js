@@ -58,10 +58,12 @@ module.exports = class Provider {
 	}
 
 	asset(file) {
+		let asset = file;
+
 		if (this._isProd && this.$assetManifest.has(file)) {
-			return this.$assetManifest.get(file);
+			asset = this.$assetManifest.get(file);
 		}
-		return file;
+		return asset.replace(/^\//, '');
 	}
 
 	get id() {
