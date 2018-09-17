@@ -11,9 +11,9 @@
   "bin": {
     "fragmento": "./bin/fragmento.js"
   },
-  "version": "1.0.11",
+  "version": "1.0.12",
   "dependencies": {
-    "@fragmento/provider": "^1.0.11",
+    "@fragmento/provider": "^1.0.12",
     "commander": "^2.16.0",
     "nodemon": "^1.18.3"
   },
