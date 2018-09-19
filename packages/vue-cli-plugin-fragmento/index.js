@@ -44,7 +44,7 @@ function devServerConfig() {
 module.exports = async(api, projectOptions) => {
 
 	api.chainWebpack(wconfig => {
-		wconfig.resolve.alias.set('vue$', 'vue/dist/vue.esm.js');
+		//wconfig.resolve.alias.set('vue$', 'vue/dist/vue.esm.js');
 
 
 		wconfig.resolve.alias.set('@', path.join(CWD));
@@ -100,10 +100,30 @@ module.exports = async(api, projectOptions) => {
 		}
 
 
-		wconfig.externals({
-			'vue': 'Vue',
-			'axios': 'axios'
-		});
+
+
+		let externals = ['vue'];
+
+		let fexternals = externals.reduce((acc, lib) => {
+			acc[lib] = `var __fragmento_client__.aliasModules.${lib}`;
+			return acc;
+		}, {});
+
+
+		const hostExternals = function(context, request, callback) {
+			// Every module prefixed with "@host/" becomes external and will be loaded from __fragmento_client__.aliasModules
+			// "@host/abc" -> __fragmento_client__.aliasModules.abc
+			if (/^@host\//.test(request)) {
+				return callback(null, `var __fragmento_client__.aliasModules.${request.substr(6)}`);
+			}
+			callback();
+		};
+
+		wconfig.externals([
+			fexternals,
+			hostExternals
+		]);
+
 
 
 

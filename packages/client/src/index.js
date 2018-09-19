@@ -106,7 +106,10 @@ class Registry {
 
 	constructor() {
 		this.$scripts = new Set();
+
 	}
+
+
 
 	async loadScript(url) {
 		return loadScript(url);
@@ -121,8 +124,14 @@ class Registry {
 
 class Client {
 
-	constructor() {
+	constructor(options) {
+		this.$options = options;
 		this.$registry = new Registry();
+		window.__fragmento_client__ = this;
+	}
+
+	get aliasModules() {
+		return this.$options.aliasModules;
 	}
 
 	fragment(options) {
