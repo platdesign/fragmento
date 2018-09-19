@@ -128,11 +128,22 @@ class Client {
 		this.$options = options;
 		this.$registry = new Registry();
 		window.__fragmento_client__ = this;
+
+
+		this.aliasModules = new Proxy(this.$options.aliasModules, {
+			get(mod, key) {
+				if (mod.hasOwnProperty(key)) {
+					return mod[key];
+				} else {
+					throw new Error(`Fragmento alias modules: Host module @host/${key} not found.\n--> Please provide it as aliasModules option on initializing Fragmento.Client`);
+				}
+			}
+		})
 	}
 
-	get aliasModules() {
-		return this.$options.aliasModules;
-	}
+	// get aliasModules() {
+	// 	return this.$options.aliasModules;
+	// }
 
 	fragment(options) {
 		return new Fragment(this, options);
