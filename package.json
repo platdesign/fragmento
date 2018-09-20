@@ -12,13 +12,15 @@
 	"repository": "",
 	"devDependencies": {
 		"code": "^5.2.0",
-		"lerna": "^3.3.2",
+		"lerna": "^3.4.0",
 		"mocha": "^5.2.0"
 	},
 	"scripts": {
 		"lerna": "lerna",
 		"bootstrap": "lerna bootstrap",
 		"publish": "lerna publish --force-publish=*",
-		"test:w": "lerna run test:w --parallel"
+		"test:w": "lerna run test:w --parallel",
+		"outdated": "lerna exec npm outdated --no-bail",
+		"update:s": "lerna exec npm update -- -s"
 	}
 }

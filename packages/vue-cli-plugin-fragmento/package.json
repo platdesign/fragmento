@@ -16,6 +16,6 @@
   "dependencies": {
     "@fragmento/provider": "^1.0.13",
     "@fragmento/webpack-fragment-loader": "^1.0.13",
-    "webpack-manifest-plugin": "^2.0.3"
+    "webpack-manifest-plugin": "^2.0.4"
   }
 }
