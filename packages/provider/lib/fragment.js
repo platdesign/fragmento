@@ -45,9 +45,12 @@ module.exports = class Fragment {
 	}
 
 
+	get entryId() {
+		return `${this.$provider.id}_${this.id}`;
+	}
 
 	get entryName() {
-		return `f_${this.$provider.id}_${this.id}`;
+		return `f_${this.entryId}`;
 	}
 
 
@@ -68,7 +71,7 @@ module.exports = class Fragment {
 
 	get probe() {
 		let probe = {
-			id: this.id,
+			id: this.entryId,
 			labels: this.labels,
 
 			provider: {

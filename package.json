@@ -18,8 +18,9 @@
 	"scripts": {
 		"lerna": "lerna",
 		"bootstrap": "lerna bootstrap",
-		"publish": "lerna publish --force-publish=*",
+		"publish": "npm run bootstrap && npm run test && lerna publish --force-publish=*",
 		"test:w": "lerna run test:w --parallel",
+		"test": "lerna run test --parallel",
 		"outdated": "lerna exec npm outdated --no-bail",
 		"update:s": "lerna exec npm update -- -s"
 	}

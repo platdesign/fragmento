@@ -1,7 +1,9 @@
 'use strict';
 
 
-const { expect } = require('code');
+const {
+	expect
+} = require('code');
 const path = require('path');
 const Provider = require('../');
 const fs = require('fs');
@@ -16,18 +18,17 @@ function testFragmentProbe(fp) {
 
 	expect(fp.provider).to.be.an.object();
 
-		expect(fp.provider.id).to.be.a.string();
-		expect(fp.provider.url).to.be.a.string();
-		expect(fp.provider.assetsPath).to.be.a.string();
-		expect(fp.provider.apiPath).to.be.a.string();
+	expect(fp.provider.id).to.be.a.string();
+	expect(fp.provider.url).to.be.a.string();
+	expect(fp.provider.assetsPath).to.be.a.string();
+	expect(fp.provider.apiPath).to.be.a.string();
 
 	expect(fp.src).to.be.an.object();
 
-		expect(fp.src.entry).to.be.a.string();
-		expect(fp.src.deps).to.be.an.array();
+	expect(fp.src.entry).to.be.a.string();
+	expect(fp.src.deps).to.be.an.array();
 
 }
-
 
 
 
@@ -35,14 +36,12 @@ function expectProbe(probe, expectedProbe) {
 	expect(probe, 'probe')
 		.to.be.an.array();
 
-	for(let fp of probe) {
+	for (let fp of probe) {
 		testFragmentProbe(fp);
 	}
 
 	expect(probe).to.equal(expectedProbe);
 }
-
-
 
 
 
@@ -60,11 +59,8 @@ function testProviderProbe(cwd) {
 }
 
 
-describe('provider', () => {
-
+describe('probe', () => {
 
 	testProviderProbe(path.join(__dirname, 'providers', 'test-a'));
-
-
 
 });

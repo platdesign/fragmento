@@ -12,24 +12,18 @@ const Provider = require('@fragmento/provider');
 const fs = require('fs');
 
 
-function stripDoubleSlash(str) {
-	return str.replace(/\/\//, '/');
-}
 
+module.exports = async(cwd, autostart = true) => {
 
-module.exports = async(cwd) => {
-
-	let provider = new Provider(cwd);
-
-
+	const provider = new Provider(cwd);
 	const fragments = provider.$fragmentsArray;
-	const mainConfig = provider.$config;
 
 
 
+	// Init Hpi server
 	const server = new Hapi.Server({
 		host: '0.0.0.0',
-		port: process.env.NODE_ENV === 'production' ? mainConfig.backend.port : mainConfig.dev.server.port,
+		port: process.env.NODE_ENV === 'production' ? provider.$config.backend.port : provider.$config.dev.server.port,
 		routes: {
 			cors: {
 				origin: ['*']
@@ -38,79 +32,45 @@ module.exports = async(cwd) => {
 	});
 
 
+
+	// Register inert as asset-provider
 	await server.register(require('inert'));
+
+
 
 	const container = {
 		server
 	};
 
+
+
+	// register dir routes as plugin to create routes from route paths
 	await server.register(require('./plugins/dir-routes'));
 
 
+
+	// decorate server to give access to fragmento-provider
 	server.decorate('server', 'fragmento', provider);
 
 
-	let publicBaseUrl = mainConfig.backend.publicBaseUrl || `http://0.0.0.0:${mainConfig.backend.port}`;
 
-
-	// let pFragments;
-
-	// if (process.env.NODE_ENV !== 'production') {
-	// 	pFragments = Array.from(fragments).map(f => ({
-	// 		id: f.id,
-	// 		url: `${publicBaseUrl}${mainConfig.publicPath}${f.entryName}.js`,
-	// 		tags: f.tags,
-	// 		apiBaseUrl: `${publicBaseUrl}/api/f/${f.id}`,
-	// 		dependencies: [],
-	// 		styles: [],
-	// 		assetsUrl: publicBaseUrl + mainConfig.publicPath,
-	// 	}));
-	// } else {
-
-	// 	let manifest = require(path.join(cwd, 'dist', 'manifest.json'))
-
-	// 	pFragments = Array.from(fragments).map(f => ({
-	// 		id: f.id,
-	// 		url: publicBaseUrl + stripDoubleSlash(`${mainConfig.publicPath}${manifest[f.entryName+'.js']}`),
-	// 		tags: f.tags,
-	// 		apiBaseUrl: `${publicBaseUrl}/api/f/${f.id}`,
-	// 		dependencies: [
-	// 			publicBaseUrl + stripDoubleSlash(`${mainConfig.publicPath}${manifest['chunk-vendors.js']}`)
-	// 		],
-	// 		styles: [
-	// 			...(manifest.hasOwnProperty(f.entryName + '.css') ? [publicBaseUrl + stripDoubleSlash(`${mainConfig.publicPath}${manifest[f.entryName+'.css']}`)] : [])
-	// 		],
-	// 		assetsUrl: publicBaseUrl + mainConfig.publicPath
-	// 	}));
-	// }
-
-
-
-	// let probe = {
-	// 	serverId: mainConfig.id,
-	// 	baseUrl: publicBaseUrl,
-	// 	fragments: pFragments
-	// };
-
-	// server.route({
-	// 	method: 'GET',
-	// 	path: '/api/probe',
-	// 	handler: () => {
-	// 		return probe
-	// 	}
-	// });
-
-
-
-	const providerServerDir = path.join(cwd, 'server');
-	await require(providerServerDir)(server);
+	// load server dir if available
+	try {
+		const providerServerDir = path.join(cwd, 'server');
+		fs.accessSync(providerServerDir, fs.constants.R_OK);
+		await require(providerServerDir)(server);
+	} catch (e) {
+		if (e.code !== 'ENOENT') {
+			throw e;
+		}
+	}
 
 
 
 	// register fragment assets route
 	server.route({
 		method: 'GET',
-		path: `${mainConfig.backend.assetsPath}{param*}`,
+		path: `${provider.$config.backend.assetsPath}{param*}`,
 		handler: {
 			directory: {
 				path: path.join(cwd, 'dist'),
@@ -137,8 +97,12 @@ module.exports = async(cwd) => {
 
 
 
-	// start server
-	await server.start();
+	// start server if autostart isnt disabled
+	if (autostart) {
+		await server.start();
+	}
+
+
 
 	return server;
 };

@@ -1,9 +1,12 @@
 'use strict';
 
 
-const { expect } = require('code');
+const {
+	expect
+} = require('code');
 const boot = require('../');
 const path = require('path');
+
 
 
 describe('server', () => {
@@ -11,26 +14,25 @@ describe('server', () => {
 	const cwd = path.join(__dirname, 'env');
 
 	let server;
-	beforeEach(async () => server = await boot(cwd));
-	afterEach(async () => server.stop());
+	beforeEach(async() => server = await boot(cwd, false));
+	afterEach(async() => server.stop());
 
 
-	it('should boot', async () => {
+	it('should boot', async() => {
 
 		expect(server.fragmento)
 			.to.be.an.object()
-			.to.include(['fragments', 'config']);
+			.to.include(['$fragments', '$config']);
 
 	});
 
 
 
-
-	it('should register api routes', async () => {
+	it('should register api routes', async() => {
 
 		let res = await server.inject({
 			method: 'GET',
-			url: `/fragments/${server.fragmento.fragments[0].id}/api`
+			url: `/api/f/fragement_a/test`
 		});
 
 		expect(res.result)
@@ -39,15 +41,21 @@ describe('server', () => {
 	});
 
 
-	it('should register asset-routes', async () => {
 
-		let res = await server.inject({
-			method: 'GET',
-			url: `/assets/${server.fragmento.fragments[0].id}.js`
-		});
+	it('should register asset-routes', async() => {
 
-		expect(res.result)
-			.to.equal(`console.log('test');\n`)
+		let probe = server.fragmento.probe;
+
+		for (let fragment of probe) {
+
+			let res = await server.inject({
+				method: 'GET',
+				url: `${fragment.provider.assetsPath}${fragment.src.entry}`,
+			});
+
+			expect(res.result)
+				.to.equal(`console.log('test');\n`)
+		}
 
 	});
 

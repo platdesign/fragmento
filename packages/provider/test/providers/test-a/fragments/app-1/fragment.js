@@ -3,6 +3,6 @@
 
 
 module.exports = {
-	id: 'app1',
+	id: 'app',
 	labels: ['console-app']
 }

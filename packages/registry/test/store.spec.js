@@ -4,7 +4,9 @@
 
 const sinon = require('sinon');
 
-const { expect } = require('code');
+const {
+	expect
+} = require('code');
 const Store = require('../lib/store');
 const Joi = require('joi');
 
@@ -27,7 +29,6 @@ describe('Store', () => {
 
 
 
-
 		it('remove single item', () => {
 
 			store.set('qwe', {});
@@ -41,7 +42,6 @@ describe('Store', () => {
 				.to.equal(0);
 
 		});
-
 
 
 
@@ -94,7 +94,6 @@ describe('Store', () => {
 
 
 
-
 		it('should add an item and update it to keep it alive', () => {
 
 			store.set('qwe', {});
@@ -130,7 +129,6 @@ describe('Store', () => {
 
 
 	});
-
 
 
 
@@ -205,7 +203,6 @@ describe('Store', () => {
 
 
 	});
-
 
 
 

@@ -4,7 +4,9 @@
 
 const sinon = require('sinon');
 
-const { expect } = require('code');
+const {
+	expect
+} = require('code');
 const Registry = require('../');
 const Joi = require('joi');
 
@@ -59,7 +61,6 @@ describe('Registry', () => {
 
 
 
-
 		describe('updated', () => {
 
 			it('should be emitted on second set', () => {
@@ -77,7 +78,6 @@ describe('Registry', () => {
 			});
 
 		});
-
 
 
 
@@ -110,7 +110,6 @@ describe('Registry', () => {
 			});
 
 		});
-
 
 
 

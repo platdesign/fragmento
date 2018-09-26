@@ -4,7 +4,6 @@
 
 module.exports = {
 
-	id: 'testa',
-	labels: ['menio']
+	id: 'testa'
 
 };
