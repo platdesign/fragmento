@@ -38,7 +38,7 @@ class Fragment {
 	}
 
 	get id() {
-		return this.$options.provider.id + '_' + this.$options.id;
+		return this.$options.id;
 	}
 
 	async load() {
