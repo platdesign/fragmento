@@ -32,6 +32,9 @@ module.exports = async(cwd, autostart = true) => {
 	});
 
 
+	// register dir routes as plugin to create routes from route paths
+	await server.register(require('./plugins/logging'));
+
 
 	// Register inert as asset-provider
 	await server.register(require('inert'));
