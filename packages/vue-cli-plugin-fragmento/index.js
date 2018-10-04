@@ -101,7 +101,6 @@ module.exports = async(api, projectOptions) => {
 
 
 
-
 		let externals = ['vue'];
 
 		let fexternals = externals.reduce((acc, lib) => {
@@ -114,7 +113,7 @@ module.exports = async(api, projectOptions) => {
 			// Every module prefixed with "@host/" becomes external and will be loaded from __fragmento_client__.aliasModules
 			// "@host/abc" -> __fragmento_client__.aliasModules.abc
 			if (/^@host\//.test(request)) {
-				return callback(null, `var __fragmento_client__.aliasModules.${request.substr(6)}`);
+				return callback(null, `var __fragmento_client__.aliasModules['${request.substr(6)}']`);
 			}
 			callback();
 		};
@@ -123,7 +122,6 @@ module.exports = async(api, projectOptions) => {
 			fexternals,
 			hostExternals
 		]);
-
 
 
 
