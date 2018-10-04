@@ -11,9 +11,9 @@
 			"url": "https://github.com/platdesign"
 		}
 	],
-	"version": "1.0.17",
+	"version": "1.0.18",
 	"dependencies": {
-		"@fragmento/provider": "^1.0.17",
+		"@fragmento/provider": "^1.0.18",
 		"hoek": "^5.0.4",
 		"joi": "^13.6.0"
 	},
