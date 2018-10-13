@@ -151,7 +151,7 @@ module.exports = class Store extends EventEmitter {
 	}
 
 	getAll() {
-		return Array.from(this.$map.values);
+		return Array.from(this.$map.values());
 	}
 
 	findByLabels(labels) {
