@@ -43,7 +43,6 @@ program
 
 
 
-
 		if (cmd.production) {
 			spawn('node', ['--preserve-symlinks', scripts.server], {
 				cwd: CWD,
@@ -71,7 +70,8 @@ program
 				watch: [
 					...fragments.map(f => f.serverPath),
 					...fragments.map(f => f.configFile),
-					path.join(CWD, 'server')
+					path.join(CWD, 'server'),
+					...config.dev.server.watch.map(i => path.join(CWD, i))
 				],
 				env: {
 					...process.env

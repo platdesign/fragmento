@@ -46,7 +46,8 @@ const schema = Joi.object().required().keys({
 	dev: Joi.object().required().keys({
 		server: Joi.object().required().keys({
 			port: Joi.number().required(),
-			cmd: Joi.string().required()
+			cmd: Joi.string().required(),
+			watch: Joi.array().items(Joi.string()).default([])
 		})
 	})
 
