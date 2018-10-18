@@ -14,6 +14,7 @@
 	"version": "1.0.19",
 	"dependencies": {
 		"@fragmento/provider": "^1.0.19",
+		"debug": "^4.1.0",
 		"hoek": "^5.0.4",
 		"joi": "^13.6.0"
 	},
