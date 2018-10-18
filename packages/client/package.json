@@ -10,12 +10,12 @@
       "url": "https://github.com/platdesign"
     }
   ],
-  "version": "1.0.19",
+  "version": "1.0.20",
   "repository": "",
   "publishConfig": {
     "access": "public"
   },
   "dependencies": {
-    "@fragmento/provider": "^1.0.19"
+    "@fragmento/provider": "^1.0.20"
   }
 }

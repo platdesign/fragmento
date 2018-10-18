@@ -9,9 +9,9 @@
       "url": "https://github.com/platdesign"
     }
   ],
-  "version": "1.0.19",
+  "version": "1.0.20",
   "dependencies": {
-    "@fragmento/provider": "^1.0.19",
+    "@fragmento/provider": "^1.0.20",
     "boom": "^7.2.0",
     "good": "^8.1.1",
     "good-console": "^7.1.0",
