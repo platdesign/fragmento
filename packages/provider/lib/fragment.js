@@ -93,10 +93,15 @@ module.exports = class Fragment {
 		if (this.$provider._isProd) {
 
 			// add chunk-vendors.js (replaced manifest.json entry)
-			probe.src.deps.push({
-				type: 'script',
-				src: this.$provider.asset('chunk-vendors.js')
-			});
+			// probe.src.deps.push({
+			// 	type: 'script',
+			// 	src: this.$provider.asset('chunk-vendors.js')
+			// });
+
+			// probe.src.deps.push({
+			// 	type: 'script',
+			// 	src: this.$provider.asset('chunk-common.js')
+			// });
 
 			// add fragment entry-styles if available
 			let stylesEntry = this.entryName + '.css';

@@ -77,7 +77,7 @@ module.exports = async(api, projectOptions) => {
 				.filename('[name].[hash].js');
 		}
 
-
+		wconfig.optimization.splitChunks({});
 
 		wconfig
 			.resolveLoader

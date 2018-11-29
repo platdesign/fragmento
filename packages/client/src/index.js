@@ -88,6 +88,7 @@ class Fragment {
 			let jsonpFn = `f_${this.id}`;
 
 			let entryUrl = this._assetsBaseUrl + this.$options.src.entry;
+
 			let content = await loadJsonP(jsonpFn, entryUrl);
 
 			this.$content = content(this);

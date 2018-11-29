@@ -1,7 +1,7 @@
 'use strict';
 
 const es6Default = mod => {
-	if(mod.hasOwnProperty('__esModule') && mod.__esModule === true && mod.hasOwnProperty('default')) {
+	if (mod.hasOwnProperty('__esModule') && mod.__esModule === true && mod.hasOwnProperty('default')) {
 		return mod.default;
 	}
 	return mod;
@@ -9,8 +9,7 @@ const es6Default = mod => {
 
 
 
-
-const loadScript = async function (url) {
+const loadScript = async function(url) {
 	return new Promise((resolve, reject) => {
 		const $script = document.createElement('script');
 		$script.onerror = () => reject(new Error(`Failed to load script from ${url}`));
@@ -24,9 +23,8 @@ const loadScript = async function (url) {
 
 
 
-
 const loadJsonP = async function(fn, url) {
-	return new Promise(async (resolve, reject) => {
+	return new Promise(async(resolve, reject) => {
 
 		let payload = null;
 
@@ -44,7 +42,7 @@ const loadCss = async function(url) {
 	return new Promise((resolve, reject) => {
 		const $el = document.createElement('link');
 
-		$el.rel  = 'stylesheet';
+		$el.rel = 'stylesheet';
 		$el.type = 'text/css';
 
 		$el.onerror = () => reject(new Error(`Failed to load styles from ${url}`));
