@@ -13,6 +13,7 @@
     "src": {
       "entry": "f_testa_app.js",
       "deps": []
-    }
+    },
+    "meta": {}
   }
 ]
