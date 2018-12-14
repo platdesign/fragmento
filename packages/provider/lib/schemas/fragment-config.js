@@ -15,7 +15,8 @@ const defaults = {
 const schema = Joi.object().required().keys({
 
 	id: Joi.string().required().regex(/^[a-z_]+$/, 'fragmentId').lowercase(),
-	labels: Joi.array().required()
+	labels: Joi.array().required(),
+	meta: Joi.object().default({})
 
 });
 

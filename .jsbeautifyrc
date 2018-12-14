@@ -1,5 +1,4 @@
 {
-  "js": {
     "indent_size": 2,
     "indent_char": " ",
     "indent_with_tabs": true,
@@ -23,5 +22,4 @@
     "operator_position": "before-newline",
     "brace_style": "collapse-preserve-inline",
     "allowed_file_extensions": ["js"]
-  }
 }

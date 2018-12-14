@@ -84,7 +84,9 @@ module.exports = class Fragment {
 			src: {
 				entry: this.$provider.asset(this.entryFile),
 				deps: []
-			}
+			},
+
+			meta: this.$config.meta
 		};
 
 

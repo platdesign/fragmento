@@ -2,9 +2,7 @@
 
 const Fragment = require('./fragment');
 const path = require('path');
-const {
-	loadConfig
-} = require('./utils');
+const { loadConfig } = require('./utils');
 const glob = require('glob');
 
 const CONFIG_SCHEMA = require('./schemas/provider-config');
@@ -91,7 +89,7 @@ module.exports = class Provider {
 	}
 
 	get probe() {
-		return this.$fragmentsArray.map(f => f.probe)
+		return this.$fragmentsArray.map(f => f.probe);
 	}
 
 }

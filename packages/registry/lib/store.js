@@ -30,7 +30,8 @@ const ITEM_JOI_SCHEMA = Joi.object().required().keys({
 	}),
 	src: Joi.object({
 		entry: Joi.string().required()
-	})
+	}),
+	meta: Joi.object().default({})
 
 }).options({
 	allowUnknown: true

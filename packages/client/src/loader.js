@@ -30,9 +30,13 @@ const loadJsonP = async function(fn, url) {
 
 		global[fn] = _payload => payload = _payload;
 
-		await loadScript(url);
+		try {
+			await loadScript(url);
+			resolve(payload);
+		} catch (e) {
+			reject(e);
+		}
 
-		resolve(payload);
 	});
 }
 
