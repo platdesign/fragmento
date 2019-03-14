@@ -8,14 +8,14 @@
       "url": "https://github.com/platdesign"
     }
   ],
-  "version": "1.1.1",
+  "version": "1.2.0",
   "repository": "",
   "publishConfig": {
     "access": "public"
   },
   "dependencies": {
-    "@fragmento/provider": "^1.1.1",
-    "@fragmento/webpack-fragment-loader": "^1.1.1",
+    "@fragmento/provider": "^1.2.0",
+    "@fragmento/webpack-fragment-loader": "^1.2.0",
     "webpack-manifest-plugin": "^2.0.4"
   }
 }
