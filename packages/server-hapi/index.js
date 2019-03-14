@@ -88,6 +88,15 @@ module.exports = async(cwd, autostart = true) => {
 	// Register fragment api routes
 	for (let fragment of fragments) {
 
+		let indexFile = path.join(fragment.serverPath, 'index.js');
+
+		if (fs.existsSync(indexFile)) {
+			await require(indexFile)(fragment, server);
+		}
+
+
+
+
 		let apiFolder = path.join(fragment.serverPath, 'api');
 
 		if (fs.existsSync(apiFolder)) {
@@ -95,6 +104,8 @@ module.exports = async(cwd, autostart = true) => {
 				prefix: `/api/f/${fragment.id}`
 			}, factory => factory(container));
 		}
+
+
 
 	}
 
