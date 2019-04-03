@@ -25,12 +25,25 @@ class Fragment {
 		return this.$content && this.$content.default;
 	}
 
+
+	get _baseUrl() {
+		let url = '';
+
+		if (this.$client.$options.hasOwnProperty('assetProxyUrl')) {
+			url += this.$client.$options.assetProxyUrl + '/' + this.$options.id;
+		} else {
+			url += this.$options.provider.url;
+		}
+
+		return url;
+	}
+
 	get _apiBaseUrl() {
-		return this.$options.provider.url + this.$options.provider.apiPath;
+		return this._baseUrl + this.$options.provider.apiPath;
 	}
 
 	get _assetsBaseUrl() {
-		return this.$options.provider.url + this.$options.provider.assetsPath;
+		return this._baseUrl + this.$options.provider.assetsPath;
 	}
 
 	get __webpack_public_path__() {
@@ -130,16 +143,19 @@ class Client {
 		this.$registry = new Registry();
 		window.__fragmento_client__ = this;
 
-
-		this.aliasModules = new Proxy(this.$options.aliasModules, {
-			get(mod, key) {
-				if (mod.hasOwnProperty(key)) {
-					return mod[key];
-				} else {
-					throw new Error(`Fragmento alias modules: Host module @host/${key} not found.\n--> Please provide it as aliasModules option on initializing Fragmento.Client`);
+		if (global.Proxy !== undefined) {
+			this.aliasModules = new Proxy(this.$options.aliasModules, {
+				get(mod, key) {
+					if (mod.hasOwnProperty(key)) {
+						return mod[key];
+					} else {
+						throw new Error(`Fragmento alias modules: Host module @host/${key} not found.\n--> Please provide it as aliasModules option on initializing Fragmento.Client`);
+					}
 				}
-			}
-		})
+			})
+		} else {
+			this.aliasModules = this.$options.aliasModules;
+		}
 	}
 
 	// get aliasModules() {
