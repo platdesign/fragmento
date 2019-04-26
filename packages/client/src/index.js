@@ -25,6 +25,10 @@ class Fragment {
 		return this.$content && this.$content.default;
 	}
 
+	matchesLabels(labels) {
+		return labels.every(label => this.$options.labels.includes(label));
+	}
+
 
 	get _baseUrl() {
 		let url = '';
@@ -143,6 +147,9 @@ class Client {
 		this.$registry = new Registry();
 		window.__fragmento_client__ = this;
 
+		this.$fragments = new Map();
+
+
 		if (global.Proxy !== undefined) {
 			this.aliasModules = new Proxy(this.$options.aliasModules, {
 				get(mod, key) {
@@ -158,12 +165,37 @@ class Client {
 		}
 	}
 
-	// get aliasModules() {
-	// 	return this.$options.aliasModules;
-	// }
 
 	fragment(options) {
-		return new Fragment(this, options);
+		const { id } = options;
+
+		let fragment;
+
+		if(!this.$fragments.has(id)) {
+			fragment = new Fragment(this, options);
+			this.$fragments.set(id, fragment);
+		} else {
+			fragment = this.$fragments.get(id);
+
+			fragment.updateOptions(options);
+		}
+
+		return fragment;
+	}
+
+
+	getFragmentsByLabels(labels) {
+
+		let all = Array.from(this.$fragments.values());
+
+		return all.filter(fragment => fragment.matchesLabels(labels));
+
+	}
+
+	registerAliasModule(key, val) {
+		this.$options.aliasModules[key] = val;
+
+		return this;
 	}
 
 }
