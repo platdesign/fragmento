@@ -21,6 +21,10 @@ class Fragment {
 		this.$content = null;
 	}
 
+	updateOptions() {
+
+	}
+
 	get content() {
 		return this.$content && this.$content.default;
 	}

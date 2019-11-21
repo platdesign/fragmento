@@ -31,7 +31,7 @@ program
 program
 	.command('run')
 	.option('-p, --production', 'Run production server')
-	.action(async(cmd) => {
+	.action(async (cmd) => {
 
 		let provider = new Provider(CWD);
 
@@ -44,12 +44,16 @@ program
 
 
 		if (cmd.production) {
-			spawn('node', ['--preserve-symlinks', scripts.server], {
+			let childProcess = spawn('node', ['--preserve-symlinks', scripts.server], {
 				cwd: CWD,
 				stdio: 'inherit',
 				env: {
 					...process.env,
 				}
+			});
+
+			childProcess.on('exit', (code) => {
+				process.exit(code);
 			});
 		} else {
 
