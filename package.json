@@ -1,6 +1,7 @@
 {
 	"name": "fragmento",
 	"description": "A project by platdesign.de",
+	"private": true,
 	"author": [
 		{
 			"name": "Christian Blaschke",
