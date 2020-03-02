@@ -16,6 +16,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@fragmento/provider": "^1.2.3"
+    "@fragmento/provider": "^1.2.3",
+    "debug": "^4.1.1"
   }
 }
