@@ -6,14 +6,14 @@
 
 
 
-const Hapi = require('hapi');
+const Hapi = require('@hapi/hapi');
 const path = require('path');
 const Provider = require('@fragmento/provider');
 const fs = require('fs');
+const Joi = require('joi');
 
 
-
-module.exports = async(cwd, autostart = true) => {
+module.exports = async (cwd, autostart = true) => {
 
 	const provider = new Provider(cwd);
 	const fragments = provider.$fragmentsArray;
@@ -31,6 +31,8 @@ module.exports = async(cwd, autostart = true) => {
 		}
 	});
 
+
+	server.validator(Joi);
 
 	// register dir routes as plugin to create routes from route paths
 	await server.register(require('./plugins/logging'));

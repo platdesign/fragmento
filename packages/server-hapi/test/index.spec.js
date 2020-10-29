@@ -14,11 +14,11 @@ describe('server', () => {
 	const cwd = path.join(__dirname, 'env');
 
 	let server;
-	beforeEach(async() => server = await boot(cwd, false));
-	afterEach(async() => server.stop());
+	beforeEach(async () => server = await boot(cwd, false));
+	afterEach(async () => server.stop());
 
 
-	it('should boot', async() => {
+	it('should boot', async () => {
 
 		expect(server.fragmento)
 			.to.be.an.object()
@@ -28,7 +28,7 @@ describe('server', () => {
 
 
 
-	it('should register api routes', async() => {
+	it('should register api routes', async () => {
 
 		let res = await server.inject({
 			method: 'GET',
@@ -42,7 +42,7 @@ describe('server', () => {
 
 
 
-	it('should register asset-routes', async() => {
+	it('should register asset-routes', async () => {
 
 		let probe = server.fragmento.probe;
 
