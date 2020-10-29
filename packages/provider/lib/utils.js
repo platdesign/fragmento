@@ -2,7 +2,7 @@
 
 
 const Joi = require('joi');
-const Hoek = require('hoek');
+const Hoek = require('@hapi/hoek');
 
 
 
@@ -21,25 +21,13 @@ function requireFirstAvailable(places) {
 
 
 
-function loadConfig(places, {
-	schema,
-	defaults
-}) {
+function loadConfig(places, { schema, defaults }) {
 
 	let configured = requireFirstAvailable(places);
 
 	let merged = Hoek.applyToDefaults(defaults, configured);
 
-	let {
-		error,
-		value: validated
-	} = Joi.validate(merged, schema);
-
-	if (error) {
-		throw error;
-	}
-
-	return validated;
+	return Joi.attempt(merged, schema);
 
 }
 

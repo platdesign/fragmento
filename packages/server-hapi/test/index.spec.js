@@ -1,9 +1,7 @@
 'use strict';
 
 
-const {
-	expect
-} = require('code');
+const { expect } = require('@hapi/code');
 const boot = require('../');
 const path = require('path');
 

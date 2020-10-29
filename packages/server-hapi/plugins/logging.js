@@ -1,7 +1,7 @@
 'use strict';
 
 
-const Good = require('good');
+const laabr = require('laabr');
 
 
 module.exports = {
@@ -9,29 +9,47 @@ module.exports = {
 
 		if (process.env.NODE_ENV !== 'test') {
 
+			// await server.register({
+			// 	plugin: require('hapi-pino'),
+			// 	options: {
+			// 		prettifier: 'pino-pretty',
+			// 		prettyPrint: true, //process.env.NODE_ENV !== 'production',
+			// 		// Redact Authorization headers, see https://getpino.io/#/docs/redaction
+			// 		redact: ['req.headers.authorization']
+			// 	}
+			// });
+
 			await server.register({
-				plugin: Good,
+				plugin: laabr,
 				options: {
-					ops: {
-						interval: 1000
-					},
-					reporters: {
-						myConsoleReporter: [{
-								module: 'good-squeeze',
-								name: 'Squeeze',
-								args: [{
-									log: '*',
-									response: '*',
-									error: '*'
-								}]
-							}, {
-								module: 'good-console'
-							},
-							'stdout'
-						]
-					}
+					indent: 0,
+					colored: true
 				}
 			});
+
+			// await server.register({
+			// 	plugin: HapiGood,
+			// 	options: {
+			// 		ops: {
+			// 			interval: 1000
+			// 		},
+			// 		reporters: {
+			// 			myConsoleReporter: [{
+			// 					module: '@hapi/good-squeeze',
+			// 					name: 'Squeeze',
+			// 					args: [{
+			// 						log: '*',
+			// 						response: '*',
+			// 						error: '*'
+			// 					}]
+			// 				}, {
+			// 					module: '@hapi/good-console'
+			// 				},
+			// 				'stdout'
+			// 			]
+			// 		}
+			// 	}
+			// });
 
 		}
 

@@ -1,7 +1,7 @@
 'use strict';
 
 
-const { expect } = require('code');
+const { expect } = require('@hapi/code');
 const { spawn } = require('child_process');
 const path = require('path');
 const cliPath = path.resolve(__dirname, '..');

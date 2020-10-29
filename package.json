@@ -12,9 +12,9 @@
 	"version": "0.0.0",
 	"repository": "",
 	"devDependencies": {
-		"code": "^5.2.0",
-		"lerna": "^3.4.0",
-		"mocha": "^5.2.0"
+		"@hapi/code": "^8.0.2",
+		"lerna": "^3.22.1",
+		"mocha": "^8.2.0"
 	},
 	"scripts": {
 		"lerna": "lerna",
@@ -24,5 +24,6 @@
 		"test": "lerna run test --parallel",
 		"outdated": "lerna exec npm outdated --no-bail",
 		"update:s": "lerna exec npm update -- -s"
-	}
+	},
+	"dependencies": {}
 }

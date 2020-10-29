@@ -11,6 +11,7 @@ const path = require('path');
 const Provider = require('@fragmento/provider');
 const fs = require('fs');
 const Joi = require('joi');
+const HapiInert = require('@hapi/inert');
 
 
 module.exports = async (cwd, autostart = true) => {
@@ -39,7 +40,7 @@ module.exports = async (cwd, autostart = true) => {
 
 
 	// Register inert as asset-provider
-	await server.register(require('inert'));
+	await server.register(HapiInert);
 
 
 
