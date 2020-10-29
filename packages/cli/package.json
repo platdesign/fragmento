@@ -15,7 +15,7 @@
   "dependencies": {
     "@fragmento/provider": "^1.2.3",
     "commander": "^2.18.0",
-    "nodemon": "^1.18.4"
+    "nodemon": "^2.0.6"
   },
   "peerDependencies": {
     "@fragmento/server-hapi": "*"
