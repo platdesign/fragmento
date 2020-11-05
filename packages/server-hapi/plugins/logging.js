@@ -23,7 +23,10 @@ module.exports = {
 				plugin: laabr,
 				options: {
 					indent: 0,
-					colored: true
+					colored: true,
+					hapiPino: {
+						logPayload: false
+					}
 				}
 			});
 
