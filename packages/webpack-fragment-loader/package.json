@@ -8,12 +8,12 @@
       "url": "https://github.com/platdesign"
     }
   ],
-  "version": "1.3.2",
+  "version": "1.4.0",
   "repository": "",
   "publishConfig": {
     "access": "public"
   },
   "dependencies": {
-    "@fragmento/provider": "^1.3.2"
+    "@fragmento/provider": "^1.4.0"
   }
 }
