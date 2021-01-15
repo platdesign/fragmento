@@ -9,15 +9,13 @@ const CWD = process.env.INIT_CWD;
 const path = require('path');
 const pkg = require('./package.json');
 const Provider = require('@fragmento/provider');
-const {
-	spawn
-} = require('child_process');
+const { spawn } = require('child_process');
 const nodemon = require('nodemon');
 
 
 
 const scripts = {
-	server: path.resolve(__dirname, 'scripts', 'server')
+	server: process.env.NODE_ENV === 'test' ? process.env.TEST_SERVER_SCRIPT : path.resolve(__dirname, 'scripts', 'server.js')
 };
 
 
@@ -35,13 +33,7 @@ program
 
 		let provider = new Provider(CWD);
 
-
-		let {
-			$fragmentsArray: fragments,
-			$config: config
-		} = provider;
-
-
+		let { $fragmentsArray: fragments, $config: config } = provider;
 
 		if (cmd.production) {
 			let childProcess = spawn('node', ['--preserve-symlinks', scripts.server], {
@@ -69,9 +61,13 @@ program
 
 
 			nodemon({
-				script: scripts.server,
+				exec: `(node --inspect=0.0.0.0 ${scripts.server} || (sleep 10; touch ${scripts.server}))`,
+				//script: scripts.server,
+				dump: true,
+				verbose: true,
 				ext: 'js json',
 				watch: [
+					scripts.server,
 					...fragments.map(f => f.serverPath),
 					...fragments.map(f => f.configFile),
 					path.join(CWD, 'server'),
@@ -81,6 +77,15 @@ program
 					...process.env
 				}
 			});
+
+			// nodemon.on('start', function() {
+			// 	console.log('App has started');
+			// }).on('quit', function() {
+			// 	console.log('App has quit');
+			// 	process.exit();
+			// }).on('restart', function(files) {
+			// 	console.log('App restarted due to: ', files);
+			// });
 
 		}
 

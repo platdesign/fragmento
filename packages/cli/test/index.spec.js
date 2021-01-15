@@ -16,35 +16,29 @@ describe('cli', function() {
 
 
 
-	// it('should execute run', (done) => {
+	it('should execute run', (done) => {
 
-	// 	let cmd = spawn('node', [cliPath, 'run'], {
-	// 		cwd: appPath,
-	// 		env: {
-	// 			...process.env,
-	// 			INIT_CWD: appPath
-	// 		}
-	// 	});
+		let cmd = spawn('node', [cliPath, 'run'], {
+			cwd: appPath,
+			env: {
+				...process.env,
+				INIT_CWD: appPath,
+				NODE_ENV: 'test',
+				TEST_SERVER_SCRIPT: path.join(appPath, 'server.js')
+			}
+		});
 
-
-	// 	cmd.stdout.on('data', (data) => {
-	// 	  console.log(`stdout: ${data}`);
-	// 	});
-
-	// 	cmd.stderr.on('data', (data) => {
-	// 	  console.log(`stderr: ${data}`);
-	// 	});
-
-	// 	cmd.on('close', (code) => {
-	// 	  console.log(`child process exited with code ${code}`);
-	// 	});
+		cmd.stdout.pipe(process.stdout);
+		cmd.stderr.pipe(process.stderr);
 
 
-	// 	setTimeout(() => {
-	// 		cmd.kill();
-	// 		done();
-	// 	}, 2000);
+		setTimeout(() => {
+			cmd.kill();
+			cmd.on('close', (code) => {
+				done();
+			});
+		}, 5000);
 
-	// });
+	});
 
 });
