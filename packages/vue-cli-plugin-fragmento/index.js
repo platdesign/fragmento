@@ -30,10 +30,16 @@ function devServerConfig() {
 		open: false,
 		publicPath: projectConfig.backend.assetsPath,
 		proxy: {
-			'/api': {
+			// '/api': {
+			// 	target: `http://localhost:${projectConfig.dev.server.port}`,
+			// 	ws: true,
+			// 	changeOrigin: true
+			// }
+			'^/': {
 				target: `http://localhost:${projectConfig.dev.server.port}`,
 				ws: true,
-				changeOrigin: true
+				changeOrigin: false,
+				hostRewrite: false
 			}
 		}
 	}
@@ -41,7 +47,7 @@ function devServerConfig() {
 
 
 
-module.exports = async(api, projectOptions) => {
+module.exports = async (api, projectOptions) => {
 
 	api.chainWebpack(wconfig => {
 		//wconfig.resolve.alias.set('vue$', 'vue/dist/vue.esm.js');
