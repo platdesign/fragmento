@@ -68,13 +68,13 @@ module.exports = async (api, projectOptions) => {
 		wconfig.entryPoints
 			.delete('app');
 
-
-		wconfig.output
-			.filename('[name].js')
-			.library('[name]')
-			.libraryTarget('jsonp')
-			.jsonpFunction(`webpackJsonp_${projectConfig.id}`);
-
+		if (api.service.mode !== 'test') {
+			wconfig.output
+				.filename('[name].js')
+				.library('[name]')
+				.libraryTarget('jsonp')
+				.jsonpFunction(`webpackJsonp_${projectConfig.id}`);
+		}
 
 		if (api.service.mode === 'production') {
 			wconfig.devtool(false);
@@ -96,39 +96,40 @@ module.exports = async (api, projectOptions) => {
 		//     }
 		//   },
 
+		if (api.service.mode !== 'test') {
 
-		for (let fragment of fragments) {
+			for (let fragment of fragments) {
 
-			wconfig
-				.entry(fragment.entryName)
-				.add('@fragmento/webpack-fragment-loader!' + path.join(fragment.clientPath, 'main.js'));
+				wconfig
+					.entry(fragment.entryName)
+					.add('@fragmento/webpack-fragment-loader!' + path.join(fragment.clientPath, 'main.js'));
 
-		}
-
-
-
-		let externals = ['vue'];
-
-		let fexternals = externals.reduce((acc, lib) => {
-			acc[lib] = `var __fragmento_client__.aliasModules.${lib}`;
-			return acc;
-		}, {});
-
-
-		const hostExternals = function(context, request, callback) {
-			// Every module prefixed with "@host/" becomes external and will be loaded from __fragmento_client__.aliasModules
-			// "@host/abc" -> __fragmento_client__.aliasModules.abc
-			if (/^@host\//.test(request)) {
-				return callback(null, `var __fragmento_client__.aliasModules['${request.substr(6)}']`);
 			}
-			callback();
-		};
 
-		wconfig.externals([
-			fexternals,
-			hostExternals
-		]);
 
+
+			let externals = ['vue'];
+
+			let fexternals = externals.reduce((acc, lib) => {
+				acc[lib] = `var __fragmento_client__.aliasModules.${lib}`;
+				return acc;
+			}, {});
+
+
+			const hostExternals = function(context, request, callback) {
+				// Every module prefixed with "@host/" becomes external and will be loaded from __fragmento_client__.aliasModules
+				// "@host/abc" -> __fragmento_client__.aliasModules.abc
+				if (/^@host\//.test(request)) {
+					return callback(null, `var __fragmento_client__.aliasModules['${request.substr(6)}']`);
+				}
+				callback();
+			};
+
+			wconfig.externals([
+				fexternals,
+				hostExternals
+			]);
+		}
 
 
 		wconfig.plugins
