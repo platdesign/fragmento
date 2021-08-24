@@ -8,7 +8,7 @@
       "url": "https://github.com/platdesign"
     }
   ],
-  "version": "1.5.0",
+  "version": "1.5.1",
   "dependencies": {
     "glob": "^7.1.6",
     "joi": "^17.3.0"

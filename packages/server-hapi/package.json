@@ -9,9 +9,9 @@
       "url": "https://github.com/platdesign"
     }
   ],
-  "version": "1.5.0",
+  "version": "1.5.1",
   "dependencies": {
-    "@fragmento/provider": "^1.5.0",
+    "@fragmento/provider": "^1.5.1",
     "@hapi/boom": "^9.1.0",
     "@hapi/hapi": "^20.0.1",
     "@hapi/hoek": "^9.1.0",
