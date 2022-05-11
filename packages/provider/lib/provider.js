@@ -43,10 +43,15 @@ module.exports = class Provider {
 		this.$assetManifest = new Map();
 
 		if (this._isProd) {
-			let manifest = require(this._resolvePath('dist', 'manifest.json'))
+			// quick fix: if file does not exist
+			try {
+				let manifest = require(this._resolvePath('dist', 'manifest.json'))
 
-			for (let [key, val] of Object.entries(manifest)) {
-				this.$assetManifest.set(key, val);
+				for (let [key, val] of Object.entries(manifest)) {
+					this.$assetManifest.set(key, val);
+				}
+			} catch (err) {
+
 			}
 		}
 	}
