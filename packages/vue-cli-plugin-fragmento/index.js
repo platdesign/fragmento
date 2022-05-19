@@ -19,8 +19,7 @@ const fragments = provider.$fragmentsArray;
 
 function devServerConfig() {
 	return {
-		// If devServer is needed use backend port and set up proxy
-		port: projectConfig.backend.port,
+		port: projectConfig.dev.server.port,
 		hot: true,
 		headers: {
 			'Access-Control-Allow-Origin': '*'
@@ -30,13 +29,8 @@ function devServerConfig() {
 		open: false,
 		publicPath: projectConfig.backend.assetsPath,
 		proxy: {
-			// '/api': {
-			// 	target: `http://localhost:${projectConfig.dev.server.port}`,
-			// 	ws: true,
-			// 	changeOrigin: true
-			// }
 			'^/': {
-				target: `http://localhost:${projectConfig.dev.server.port}`,
+				target: `http://localhost:${projectConfig.backend.port}`,
 				ws: true,
 				changeOrigin: false,
 				hostRewrite: false
