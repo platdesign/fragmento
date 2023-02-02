@@ -13,7 +13,7 @@
 	"repository": "",
 	"devDependencies": {
 		"@hapi/code": "^8.0.2",
-		"lerna": "^3.22.1",
+		"lerna": "^6.4.1",
 		"mocha": "^8.2.0"
 	},
 	"scripts": {
